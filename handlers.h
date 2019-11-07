@@ -20,6 +20,10 @@
 /*----------- Function Prototypes ------------------------*/
 void DieWithError(char *error);
 
+int sendPacket(int skt, struct Packet pkt, struct sockaddr_in dst);
+
+struct Packet *receivePacket(int skt, struct sockaddr_in src);
+
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
 
 void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
@@ -28,8 +32,6 @@ long delay (struct timeval t1, struct timeval t2);
 
 int getWindowSize(char *totalData, int singlePacketSize);
 
-void handleACK(struct sockaddr_in src, struct Packet packet, struct sockaddr_in dst, struct Packet *ack);
-
-int generateSeqNum();
+int generateNum();
 
 #endif

@@ -6,6 +6,37 @@ void DieWithError(char *error)
 	exit(1);
 }
 
+int sendPacket(int skt, struct Packet pkt, struct sockaddr_in dst) 
+{
+    int n, dst_len = sizeof(dst);
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 50000;
+    setsockopt(skt, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    if ((n = sendto (skt, (struct Packet *)&pkt, sizeof(pkt), 0, (struct sockaddr *)&dst, dst_len)) == -1)
+    {
+        DieWithError ("sendto TIMEOUT");
+    }
+    return n;
+}
+
+struct Packet *receivePacket(int skt, struct sockaddr_in src)
+{
+    int n;
+    unsigned int src_len = sizeof(src);
+    struct Packet *pkt = malloc(sizeof(struct Packet));
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 100000;
+    setsockopt(skt, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    if ((n = recvfrom (skt, pkt, sizeof(*pkt), 0, (struct sockaddr *)&src, &src_len)) < 0)
+    {
+        perror("TIMEOUT");
+        pkt->PacketType = 99;
+    }
+    return pkt;
+}
+
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet)
 {
 	char *type;
@@ -14,11 +45,17 @@ void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet
 			type = "EOT";
 			break;
 		case 1:
-			type = "ACK";
+			type = "SYN";
 			break;
 		case 2:
-			type = "DATA";
+			type = "SYNACK";
 			break;
+        case 3:
+            type = "ACK";
+            break;
+        case 4:
+            type = "DATA";
+            break;
 		default:
 			exit(1);
 	}
@@ -32,11 +69,17 @@ void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Pac
 		case 0:
 			type = "EOT";
 			break;
-		case 1:
-			type = "ACK";
-			break;
+        case 1:
+            type = "SYN";
+            break;
 		case 2:
-			type = "DATA";
+			type = "SYNACK";
+			break;
+        case 3:
+            type = "ACK";
+            break;
+        case 4:
+            type = "DATA";
 			break;
 		default:
 			exit(1);
@@ -54,17 +97,13 @@ long delay (struct timeval t1, struct timeval t2)
 	return(d);
 }
 
-int getWindowSize(char *totalData, int singlePacketSize)
+int getWindowSize (char *totalData, int singlePacketSize)
 {
 	double n = (double)strlen(totalData)/singlePacketSize;
 	return ceil(n);
 }
 
-void handleACK(struct sockaddr_in src, struct Packet packet, struct sockaddr_in dst, struct Packet *ack)
-{
-}
-
-int generateSeqNum()
+int generateNum()
 {
 	return (rand() % 300);
 }

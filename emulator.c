@@ -1,17 +1,44 @@
 #include "handlers.h"
 
+#define CLIENT_UDP_PORT		7000	// Default port
 #define SERVER_UDP_PORT		8000	// Default port
-#define MAXLEN				65000    // Maximum Buffer length
-#define DEFLEN				64	// Default Length
 
 int main (int argc, char **argv)
 {
-	int	sd1, sd2, receiver_len, sender_len, port, n;
-	char	buf[MAXLEN];
+	int	sd1, sd2, receiver_len, sender_len, port_server = SERVER_UDP_PORT, port_client = CLIENT_UDP_PORT, n;
 	struct	sockaddr_in receiver, sender, emulator;
     struct hostent *hp;
-    char *host;
+    char *pname, *host;
     
+    pname = argv[0];
+    argc--;
+    argv++;
+    if (argc > 0 && (strcmp(*argv, "-n") == 0))
+	{
+		if (--argc > 0)
+		{
+			argc--;
+			argv++;
+		}
+		else
+		{
+			fprintf (stderr,"Usage: %s [-n noise] host [port]\n", pname);
+			exit(1);
+		}
+	}
+	if (argc > 0) 
+	{
+		host = *argv;
+			if (--argc > 0)
+				port_server = atoi(*++argv);
+	}
+	else
+	{
+		fprintf(stderr, "Usage:	%s [-n noise] host [port]\n", pname);
+		exit(1);
+	}
+    
+/*    
 	switch(argc)
 	{
 		case 1:
@@ -22,7 +49,7 @@ int main (int argc, char **argv)
 		break;
 		default:
 			exit(1);
-   	}
+   	}*/
 
 	// Create a datagram socket
 	if ((sd1 = socket (AF_INET, SOCK_DGRAM, 0)) == -1)
@@ -39,15 +66,15 @@ int main (int argc, char **argv)
 	// Bind an address to the socket
 	bzero((char *)&emulator, sizeof(emulator));
 	emulator.sin_family = AF_INET; 
-	emulator.sin_port = htons(port); 
+	emulator.sin_port = htons(port_client); 
 	emulator.sin_addr.s_addr = htonl(INADDR_ANY);
     
     bzero((char *)&receiver, sizeof(receiver));
 	receiver.sin_family = AF_INET; 
-	receiver.sin_port = htons(8000);
+	receiver.sin_port = htons(port_server);
     
     
-    if ((hp = gethostbyname("127.0.0.1")) == NULL)
+    if ((hp = gethostbyname(host)) == NULL)
     {
         DieWithError ("Can't get server's IP address");
     }
@@ -69,39 +96,67 @@ int main (int argc, char **argv)
         printReceived (sender, emulator, temp);
         
         struct Packet tmp;
-        tmp.PacketType = temp->PacketType;
-        tmp.SeqNum = temp->SeqNum;
-        tmp.AckNum = temp->AckNum;
-        strncpy(tmp.data, temp->data, sizeof(tmp.data));
-        tmp.WindowSize = temp->WindowSize;
         
-        receiver_len = sizeof(receiver);
-        if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
-        {
-            DieWithError ("sendto failure");
+        if (temp->PacketType == 1) {
+            memset((char *)&tmp, 0, sizeof(tmp));
+            tmp = *temp;
+            
+            receiver_len = sizeof(receiver);
+            if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
+            {
+                DieWithError ("sendto failure");
+            }
+            printTransmitted (emulator, receiver, tmp);
+            struct Packet *ack = malloc(sizeof(struct Packet));
+            if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
+            {
+                DieWithError ("recvfrom error");
+            }
+            printReceived (receiver, emulator, ack);
+            
+            struct Packet tmp1 = *ack;
+            
+            if (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1)
+            {
+                DieWithError ("sendto failure");
+            }
+            printTransmitted (emulator, sender, tmp1);
+        } else if (temp->PacketType == 3) {
+            memset((char *)&tmp, 0, sizeof(tmp));
+            tmp = *temp;
+            receiver_len = sizeof(receiver);
+            if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
+            {
+                DieWithError ("sendto failure");
+            }
+            printTransmitted (emulator, receiver, tmp);
+        
+        } else {
+            memset((char *)&tmp, 0, sizeof(tmp));
+            tmp = *temp;
+            
+            receiver_len = sizeof(receiver);
+            if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
+            {
+                DieWithError ("sendto failure");
+            }
+            printTransmitted (emulator, receiver, tmp);
+            
+            struct Packet *ack = malloc(sizeof(struct Packet));
+            if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
+            {
+                DieWithError ("recvfrom error");
+            }
+            printReceived (receiver, emulator, ack);
+            
+            struct Packet tmp1 = *ack;
+            
+            if (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1)
+            {
+                DieWithError ("sendto failure");
+            }
+            printTransmitted (emulator, sender, tmp1);
         }
-        printTransmitted (emulator, receiver, tmp);
-        
-        struct Packet *ack = malloc(sizeof(struct Packet));
-        if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
-		{
-			DieWithError ("recvfrom error");
-		}
-        printReceived (receiver, emulator, ack);
-        
-        struct Packet tmp1;
-        tmp1.PacketType = ack->PacketType;
-        tmp1.SeqNum = ack->SeqNum;
-        tmp1.AckNum = ack->AckNum;
-        strncpy(tmp1.data, ack->data, sizeof(tmp1.data));
-        tmp1.WindowSize = ack->WindowSize;
-        
-        if (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1)
-        {
-            DieWithError ("sendto failure");
-        }
-        printTransmitted (emulator, sender, tmp1);
-        
 	}
 	close(sd1);
     close(sd2);

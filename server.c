@@ -1,14 +1,13 @@
 #include "handlers.h"
 
 #define SERVER_UDP_PORT 	8000	// Default port
-#define MAXLEN			    65000	//Buffer length
+#define WIN				    1460   // Default Window Size
  
 int main (int argc, char **argv)
 {
-	int	sd, client_len, port, n;
-	char	buf[MAXLEN];
+	int	sd, port;
 	struct	sockaddr_in server, client;
-    char msg[MAXLEN];
+    char msg[1024];
     
 	switch(argc)
 	{
@@ -39,16 +38,17 @@ int main (int argc, char **argv)
 	{
 		DieWithError ("Can't bind name to socket");
 	}
-
+	
+	
+	struct Packet *temp = malloc(sizeof(struct Packet));
 	while (1)
 	{
-        struct Packet *temp = malloc(sizeof(struct Packet));
-		client_len = sizeof(client);
-		if ((n = recvfrom (sd, temp, sizeof(*temp), 0, (struct sockaddr *)&client, &client_len)) < 0)
-		{
-			DieWithError ("recvfrom error");
-		}
-		
+        // cant change following to receivePacket() as sendto requires sockaddr client
+        unsigned int client_len = sizeof(client);
+        if (recvfrom (sd, temp, sizeof(*temp), 0, (struct sockaddr *)&client, &client_len) < 0)
+        {
+            DieWithError ("recvfrom failure");
+        }
 		printReceived(client, server, temp);
 		
         struct Packet ack;
@@ -58,26 +58,50 @@ int main (int argc, char **argv)
                 // handle EOT function
                 printf("EOT received\n");
                 printf("%s\n", msg);
+                exit(1);
                 break;
-            case 1: // ACK
-                // handle ACK function
-                break;
-            case 2: // DATA
-                // handle DATA function
-                strcat(msg, temp->data);
-                ack.PacketType = 1;
-                ack.SeqNum = temp->AckNum;
-                ack.AckNum = temp->AckNum + 1;
-                ack.WindowSize = temp->WindowSize;
-                if (sendto (sd, (struct Packet *)&ack, sizeof(ack), 0,(struct sockaddr *)&client, client_len) != n)
-                {
-                    DieWithError ("sendto error");
-                }
+            case 1: // SYN
+                // handle SYNACK function
+                ack.PacketType = 2;
+                ack.SeqNum = 200;
+                ack.AckNum = temp->SeqNum + 1;
+                ack.WindowSize = 5;
+               
+                sendPacket (sd, ack, client);
                 printTransmitted (server, client, ack);
                 break;
+            case 2: // SYNACK
+                // handle ACK function
+                ack.PacketType = 3;
+                ack.SeqNum = temp->AckNum;
+                ack.AckNum = temp->SeqNum + 1;
+                ack.WindowSize = temp->WindowSize;
+                
+                sendPacket (sd, ack, client);
+                printTransmitted (server, client, ack);
+                break;
+            case 3: // ACK
+                // handle ACK function
+                break;
+            case 4: // DATA
+                // handle DATA function
+                strcat(msg, temp->data);
+                ack.PacketType = 3;
+                ack.SeqNum = temp->AckNum;
+                ack.AckNum = temp->SeqNum + 1;
+                ack.WindowSize = temp->WindowSize;
+                
+                sendPacket (sd, ack, client);
+                printTransmitted (server, client, ack);
+                break;
+            case 99: // TIMEOUT
+                // handle TIMEOUT
+                sendPacket (sd, ack, client);
+                break;
             default:
-                exit(1);
+                break;
         }
+        memset(temp, 0, sizeof(*temp));
 	}
 	
 	close(sd);
