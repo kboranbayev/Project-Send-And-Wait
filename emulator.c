@@ -5,7 +5,7 @@
 
 int main (int argc, char **argv)
 {
-	int	sd1, sd2, receiver_len, sender_len, port_server = SERVER_UDP_PORT, port_client = CLIENT_UDP_PORT, n;
+	int	sd1, sd2, receiver_len, sender_len, port_server = SERVER_UDP_PORT, port_client = CLIENT_UDP_PORT, n, noise = 0, r = rand100();
 	struct	sockaddr_in receiver, sender, emulator;
     struct hostent *hp;
     char *pname, *host;
@@ -19,6 +19,7 @@ int main (int argc, char **argv)
 		{
 			argc--;
 			argv++;
+            noise = atoi(*argv);
 		}
 		else
 		{
@@ -28,7 +29,9 @@ int main (int argc, char **argv)
 	}
 	if (argc > 0) 
 	{
+        argv++;
 		host = *argv;
+        printf("Host %s ", host);
 			if (--argc > 0)
 				port_server = atoi(*++argv);
 	}
@@ -38,19 +41,8 @@ int main (int argc, char **argv)
 		exit(1);
 	}
     
-/*    
-	switch(argc)
-	{
-		case 1:
-            port = SERVER_UDP_PORT;
-		break;
-		case 2:
-            port = atoi(argv[1]);
-		break;
-		default:
-			exit(1);
-   	}*/
-
+    printf("Noise set to %d\n", noise);
+    
 	// Create a datagram socket
 	if ((sd1 = socket (AF_INET, SOCK_DGRAM, 0)) == -1)
 	{
@@ -64,12 +56,12 @@ int main (int argc, char **argv)
 	}
 
 	// Bind an address to the socket
-	bzero((char *)&emulator, sizeof(emulator));
+	memset((char *)&emulator, 0, sizeof(emulator));
 	emulator.sin_family = AF_INET; 
 	emulator.sin_port = htons(port_client); 
 	emulator.sin_addr.s_addr = htonl(INADDR_ANY);
     
-    bzero((char *)&receiver, sizeof(receiver));
+    memset((char *)&receiver, 0, sizeof(receiver));
 	receiver.sin_family = AF_INET; 
 	receiver.sin_port = htons(port_server);
     
@@ -87,75 +79,140 @@ int main (int argc, char **argv)
 	
 	while (1)
 	{
+        
         struct Packet *temp = malloc(sizeof(struct Packet));
 		sender_len = sizeof(sender);
-		if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, &sender_len)) < 0)
-		{
-			DieWithError ("recvfrom error");
-		}
-        printReceived (sender, emulator, temp);
         
-        struct Packet tmp;
+        r = 15;
+        while (1) {
+            printf("Chance num %d\n", r);
+            if (noise < r) {
+                if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, &sender_len)) < 0)
+                {
+                    DieWithError ("recvfrom error");
+                }
+                printReceived (sender, emulator, temp);
+                if (temp->PacketType != 99) {
+                    break;
+                }
+            }
+            r = rand100();
+        }
+        
+        struct Packet tmp, tmp1;
         
         if (temp->PacketType == 1) {
             memset((char *)&tmp, 0, sizeof(tmp));
             tmp = *temp;
-            
             receiver_len = sizeof(receiver);
-            if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
-            {
-                DieWithError ("sendto failure");
-            }
-            printTransmitted (emulator, receiver, tmp);
-            struct Packet *ack = malloc(sizeof(struct Packet));
-            if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
-            {
-                DieWithError ("recvfrom error");
-            }
-            printReceived (receiver, emulator, ack);
             
-            struct Packet tmp1 = *ack;
-            
-            if (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1)
-            {
-                DieWithError ("sendto failure");
+            r = rand100();
+            while (1) {
+                struct Packet *ack = malloc(sizeof(struct Packet));
+                printf("SYN Chance num %d\n", r);
+                if (noise < r) {
+                    struct timeval timeout;
+                    timeout.tv_sec = 1;
+                    timeout.tv_usec = 0;
+                    setsockopt(sd2, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+                    while ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
+                    {
+                        n = sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len);
+                        printTransmitted (emulator, receiver, tmp);
+                    }
+                    // check for timeout here?
+                    printReceived (receiver, emulator, ack);
+                }
+                if (ack->PacketType != 99) {
+                    tmp1 = *ack;
+                    free(ack);
+                    break;
+                }
+                r = rand100();
             }
-            printTransmitted (emulator, sender, tmp1);
+            
+            
+            
+//             tmp1.PacketType = 99;
+//             while (noise > r) {
+//                 printf("Chance num %d\n", r);
+//                 if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
+//                 {
+//                     DieWithError ("recvfrom error");
+//                 }
+//                 printReceived (receiver, emulator, ack);
+//                 tmp1 = *ack;
+//                 r = rand100();
+//             }
+            r = rand100();
+            while (1) {
+                printf("Chance num %d\n", r);
+                if ((noise < r) && (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1))
+                {
+                    DieWithError ("sendto failure");
+                }
+                printTransmitted (emulator, sender, tmp1);
+                break;
+            }
+            
         } else if (temp->PacketType == 3) {
             memset((char *)&tmp, 0, sizeof(tmp));
             tmp = *temp;
+            sleep(0.5);
             receiver_len = sizeof(receiver);
-            if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
-            {
-                DieWithError ("sendto failure");
+            
+            r = rand100();
+            printf("Chance num %d\n", r);
+            if (noise < r) {
+                if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
+                {
+                    DieWithError ("sendto failure");
+                }
+                printTransmitted (emulator, receiver, tmp);
             }
-            printTransmitted (emulator, receiver, tmp);
-        
         } else {
             memset((char *)&tmp, 0, sizeof(tmp));
             tmp = *temp;
-            
+            sleep(0.5);
             receiver_len = sizeof(receiver);
-            if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
-            {
-                DieWithError ("sendto failure");
+            
+            r = rand100();
+            
+            while (noise > r) {
+                printf("Chance num %d\n", r);
+                if (sendto (sd2, (struct Packet *)&tmp, sizeof(tmp), 0, (struct sockaddr *)&receiver, receiver_len) == -1)
+                {
+                    DieWithError ("sendto failure");
+                }
+                printTransmitted (emulator, receiver, tmp);
+                r = rand100();
             }
-            printTransmitted (emulator, receiver, tmp);
             
             struct Packet *ack = malloc(sizeof(struct Packet));
-            if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
-            {
-                DieWithError ("recvfrom error");
+            
+            r = rand100();
+            while (noise > r) {
+                printf("Chance num %d\n", r);
+                if ((n = recvfrom (sd2, ack, sizeof(*ack), 0, (struct sockaddr *)&receiver, &receiver_len)) < 0)
+                {
+                    DieWithError ("recvfrom error");
+                }
+                printReceived (receiver, emulator, ack);
+                r = rand100();
             }
-            printReceived (receiver, emulator, ack);
             
             struct Packet tmp1 = *ack;
             
-            if (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1)
-            {
-                DieWithError ("sendto failure");
+            r = rand100();
+            while (noise > r) {
+                printf("Chance num %d\n", r);
+                if (sendto (sd1, (struct Packet *)&tmp1, sizeof(tmp1), 0, (struct sockaddr *)&sender, sender_len) == -1)
+                {
+                    DieWithError ("sendto failure");
+                }
+                printTransmitted (emulator, sender, tmp1);
+                r = rand100();
             }
-            printTransmitted (emulator, sender, tmp1);
         }
 	}
 	close(sd1);

@@ -47,7 +47,8 @@ int main (int argc, char **argv)
         unsigned int client_len = sizeof(client);
         if (recvfrom (sd, temp, sizeof(*temp), 0, (struct sockaddr *)&client, &client_len) < 0)
         {
-            DieWithError ("recvfrom failure");
+            perror("TIMEOUT");
+            temp->PacketType = 99;
         }
 		printReceived(client, server, temp);
 		
@@ -97,6 +98,7 @@ int main (int argc, char **argv)
             case 99: // TIMEOUT
                 // handle TIMEOUT
                 sendPacket (sd, ack, client);
+                printTransmitted (server, client, ack);
                 break;
             default:
                 break;

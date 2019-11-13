@@ -81,7 +81,7 @@ int main (int argc, char **argv)
     syn_packet.WindowSize = WIN;
     memset(syn_packet.data, 0, sizeof(syn_packet.data));
     
-    struct Packet *syn_ack_packet = malloc(sizeof(struct Packet));
+    struct PacketByte *pktByte = malloc(sizeof(struct PacketByte));
     struct Packet ack_packet;
     
     // start RTT calculator
@@ -89,19 +89,22 @@ int main (int argc, char **argv)
     // send SYN
     sendPacket (sd, syn_packet, server);
     printTransmitted (client, server, syn_packet);
+    
     // receive SYNACK
-    syn_ack_packet = receivePacket (sd, server);
-    if (syn_ack_packet->PacketType == 99) { // CHECK FOR TIMEOUT
-        printf("resending packet\n");
+    pktByte = receivePacket (sd, server);
+    printReceived (server, client, &pktByte->packet);
+    while (pktByte->packet.PacketType == 99) { // CHECK FOR TIMEOUT
         sendPacket (sd, syn_packet, server);
-    } else if (syn_ack_packet->PacketType == 2 && syn_ack_packet->AckNum == syn_packet.SeqNum + 1) {
-        printReceived (server, client, syn_ack_packet);
+    }
+    
+    if (pktByte->packet.PacketType == 2 && pktByte->packet.AckNum == syn_packet.SeqNum + 1) {
+        
         memset((char *)&ack_packet, 0, sizeof(ack_packet));
         ack_packet.PacketType = 3;
-        ack_packet.SeqNum = syn_ack_packet->AckNum;
+        ack_packet.SeqNum = pktByte->packet.AckNum;
         ack_packet.AckNum = generateNum();
-        if (syn_ack_packet->WindowSize < syn_packet.WindowSize) {
-            ack_packet.WindowSize = syn_ack_packet->WindowSize;
+        if (pktByte->packet.WindowSize < syn_packet.WindowSize) {
+            ack_packet.WindowSize = pktByte->packet.WindowSize;
         } else {
             ack_packet.WindowSize = syn_packet.WindowSize;
         }
@@ -123,79 +126,80 @@ int main (int argc, char **argv)
     struct Packet transmitted_packets[ack_packet.WindowSize];
     struct PacketRTT *acked_packets[getWindowSize(msg, sizeof(ack_packet.data))];
 	// transmit data
-    while (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
-        while (packet_counter < ack_packet.WindowSize) {
-            packet1.PacketType = 4; // 0 - EOT
-            if (packet1_copy.SeqNum == packet1.SeqNum && total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
-                packet1.SeqNum += sizeof(packet1.data);
-                packet1.AckNum += sizeof(packet1.data);
-                packet1.WindowSize = packet1_copy.WindowSize;
-                char *to = (char *) malloc(sizeof(packet1.data));
-                strncpy(to, msg + shift, sizeof(to));
-                strncpy(packet1.data, to, sizeof(packet1.data));
-            } else if (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
-                packet1.SeqNum = generateNum();
-                packet1.AckNum = packet1.SeqNum + 100;
-                packet1.WindowSize = ack_packet.WindowSize;
-                strncpy(packet1.data, msg, sizeof(packet1.data));
-            } else {
-                packet1.PacketType = 0;
-                packet1.SeqNum += sizeof(packet1.data);
-                packet1.AckNum += sizeof(packet1.data);
-                packet1.WindowSize = packet1_copy.WindowSize;
-                memset(packet1.data, 0, sizeof(packet1.data));
-                sendPacket (sd, packet1, server);
-                printTransmitted (client, server, packet1);
-                break;
-            }
-            
-            gettimeofday(&start, NULL);
-            sendPacket (sd, packet1, server);
-            printTransmitted (client, server, packet1);
-            
-            transmitted_packets[packet_counter] = packet1;
-            struct PacketRTT *acked_packet = (struct PacketRTT*) malloc(sizeof(struct PacketRTT));
-            acked_packet->packet = packet1;
-            acked_packet->start = start;
-            acked_packets[acked_packet_count] = acked_packet;
-            packet1_copy = packet1;
-            packet_counter++;
-            total_packet_count++;
-            acked_packet_count++;
-            shift += sizeof(packet1.data);
-        }
-        
-        struct Packet *ack = malloc(sizeof(struct Packet));
-        while (packet_counter > 0) {
-            ack = receivePacket (sd, server);
-            switch (ack->PacketType) {
-                case 0: // EOT
-                    break;
-                case 1: // SYN
-                    break;
-                case 2: // SYNACK
-                    break;
-                case 3: // ACK
-                    if (ack->SeqNum == transmitted_packets[ack_packet.WindowSize - packet_counter].AckNum) {
-                        printReceived (server, client, ack);
-                        gettimeofday (&end, NULL);
-                        for(int i = 0; i < ack_packet.WindowSize; i++) {
-                            if (acked_packets[i]->packet.SeqNum == ack->SeqNum) {
-                                acked_packets[i]->delay = delay(acked_packets[i]->start, end);
-                            }
-                        }
-                    }
-                    break;
-                case 4: // DATA
-                    break;
-                case 99: // TO
-                    break;
-                default:
-                    break;
-            }
-            packet_counter--;
-        }
-    }
+    
+//     while (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
+//         while (packet_counter < ack_packet.WindowSize) {
+//             packet1.PacketType = 4; // 0 - EOT
+//             if (packet1_copy.SeqNum == packet1.SeqNum && total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
+//                 packet1.SeqNum += sizeof(packet1.data);
+//                 packet1.AckNum += sizeof(packet1.data);
+//                 packet1.WindowSize = packet1_copy.WindowSize;
+//                 char *to = (char *) malloc(sizeof(packet1.data));
+//                 strncpy(to, msg + shift, sizeof(to));
+//                 strncpy(packet1.data, to, sizeof(packet1.data));
+//             } else if (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
+//                 packet1.SeqNum = generateNum();
+//                 packet1.AckNum = packet1.SeqNum + 100;
+//                 packet1.WindowSize = ack_packet.WindowSize;
+//                 strncpy(packet1.data, msg, sizeof(packet1.data));
+//             } else {
+//                 packet1.PacketType = 0;
+//                 packet1.SeqNum += sizeof(packet1.data);
+//                 packet1.AckNum += sizeof(packet1.data);
+//                 packet1.WindowSize = packet1_copy.WindowSize;
+//                 memset(packet1.data, 0, sizeof(packet1.data));
+//                 sendPacket (sd, packet1, server);
+//                 printTransmitted (client, server, packet1);
+//                 break;
+//             }
+//             
+//             gettimeofday(&start, NULL);
+//             sendPacket (sd, packet1, server);
+//             printTransmitted (client, server, packet1);
+//             
+//             transmitted_packets[packet_counter] = packet1;
+//             struct PacketRTT *acked_packet = (struct PacketRTT*) malloc(sizeof(struct PacketRTT));
+//             acked_packet->packet = packet1;
+//             acked_packet->start = start;
+//             acked_packets[acked_packet_count] = acked_packet;
+//             packet1_copy = packet1;
+//             packet_counter++;
+//             total_packet_count++;
+//             acked_packet_count++;
+//             shift += sizeof(packet1.data);
+//         }
+//         
+//         struct Packet *ack = malloc(sizeof(struct Packet));
+//         while (packet_counter > 0) {
+//             ack = receivePacket (sd, server);
+//             switch (ack->PacketType) {
+//                 case 0: // EOT
+//                     break;
+//                 case 1: // SYN
+//                     break;
+//                 case 2: // SYNACK
+//                     break;
+//                 case 3: // ACK
+//                     if (ack->SeqNum == transmitted_packets[ack_packet.WindowSize - packet_counter].AckNum) {
+//                         printReceived (server, client, ack);
+//                         gettimeofday (&end, NULL);
+//                         for(int i = 0; i < ack_packet.WindowSize; i++) {
+//                             if (acked_packets[i]->packet.SeqNum == ack->SeqNum) {
+//                                 acked_packets[i]->delay = delay(acked_packets[i]->start, end);
+//                             }
+//                         }
+//                     }
+//                     break;
+//                 case 4: // DATA
+//                     break;
+//                 case 99: // TO
+//                     break;
+//                 default:
+//                     break;
+//             }
+//             packet_counter--;
+//         }
+//     }
     
     printf(" RTT\t\tPacketType\tSeqNum\t\tAckNum\t\tdata\t\tWindowSize\n");
     printf("========================================================================================\n");

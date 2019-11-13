@@ -13,3 +13,9 @@ struct PacketRTT
     struct timeval start;
     long int delay;
 };
+
+struct PacketByte
+{
+    struct Packet packet;
+    int bytes;
+};

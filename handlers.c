@@ -10,31 +10,37 @@ int sendPacket(int skt, struct Packet pkt, struct sockaddr_in dst)
 {
     int n, dst_len = sizeof(dst);
     struct timeval timeout;
-    timeout.tv_sec = 0;
-    timeout.tv_usec = 50000;
+    timeout.tv_sec = 30;
+    timeout.tv_usec = 0;
     setsockopt(skt, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     if ((n = sendto (skt, (struct Packet *)&pkt, sizeof(pkt), 0, (struct sockaddr *)&dst, dst_len)) == -1)
     {
-        DieWithError ("sendto TIMEOUT");
+        perror("TIMEOUT=>SEND");
+        pkt.PacketType = 99;
     }
+
     return n;
 }
 
-struct Packet *receivePacket(int skt, struct sockaddr_in src)
+struct PacketByte *receivePacket(int skt, struct sockaddr_in src)
 {
     int n;
     unsigned int src_len = sizeof(src);
+    struct PacketByte *result = malloc(sizeof(struct PacketByte));
     struct Packet *pkt = malloc(sizeof(struct Packet));
     struct timeval timeout;
-    timeout.tv_sec = 0;
-    timeout.tv_usec = 100000;
+    timeout.tv_sec = 60;
+    timeout.tv_usec = 0;
     setsockopt(skt, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     if ((n = recvfrom (skt, pkt, sizeof(*pkt), 0, (struct sockaddr *)&src, &src_len)) < 0)
     {
-        perror("TIMEOUT");
+        perror("TIMEOUT=>GET");
         pkt->PacketType = 99;
     }
-    return pkt;
+    result->packet = *pkt;
+    result->bytes = n;
+    
+    return result;
 }
 
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet)
@@ -55,6 +61,9 @@ void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet
             break;
         case 4:
             type = "DATA";
+            break;
+        case 99:
+            type = "TIMEO";
             break;
 		default:
 			exit(1);
@@ -81,6 +90,9 @@ void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Pac
         case 4:
             type = "DATA";
 			break;
+        case 99:
+            type = "TIMEO";
+            break;
 		default:
 			exit(1);
 	}
@@ -106,4 +118,9 @@ int getWindowSize (char *totalData, int singlePacketSize)
 int generateNum()
 {
 	return (rand() % 300);
+}
+
+int rand100()
+{
+    return (rand() % 100);
 }
