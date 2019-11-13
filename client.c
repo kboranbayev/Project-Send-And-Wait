@@ -81,8 +81,11 @@ int main (int argc, char **argv)
     syn_packet.WindowSize = WIN;
     memset(syn_packet.data, 0, sizeof(syn_packet.data));
     
-    struct PacketByte *pktByte = malloc(sizeof(struct PacketByte));
+    //struct PacketByte *pktByte = malloc(sizeof(struct PacketByte));
+    struct Packet *syn_ack_packet = malloc(sizeof(struct Packet));
     struct Packet ack_packet;
+    
+    int n, server_len = sizeof(server);
     
     // start RTT calculator
     gettimeofday(&start, NULL);
@@ -90,23 +93,26 @@ int main (int argc, char **argv)
     sendPacket (sd, syn_packet, server);
     printTransmitted (client, server, syn_packet);
     
-    // receive SYNACK
-    pktByte = receivePacket (sd, server);
-    printReceived (server, client, &pktByte->packet);
-    while (pktByte->packet.PacketType == 99) { // CHECK FOR TIMEOUT
-        sendPacket (sd, syn_packet, server);
-    }
-    
-    if (pktByte->packet.PacketType == 2 && pktByte->packet.AckNum == syn_packet.SeqNum + 1) {
-        
-        memset((char *)&ack_packet, 0, sizeof(ack_packet));
-        ack_packet.PacketType = 3;
-        ack_packet.SeqNum = pktByte->packet.AckNum;
-        ack_packet.AckNum = generateNum();
-        if (pktByte->packet.WindowSize < syn_packet.WindowSize) {
-            ack_packet.WindowSize = pktByte->packet.WindowSize;
-        } else {
-            ack_packet.WindowSize = syn_packet.WindowSize;
+    while (1) {
+        // receive SYNACK
+        n = recvfrom (sd, syn_ack_packet, sizeof(*syn_ack_packet), 0, (struct sockaddr *)&server, &server_len);
+        if (n < 0) {
+            printf("Nothing get\n");
+        }
+        printReceived (server, client, syn_ack_packet);
+        if (syn_ack_packet->PacketType == 99) { // CHECK FOR TIMEOUT
+            sendPacket (sd, syn_packet, server);
+        } else if (syn_ack_packet->PacketType == 2 && syn_ack_packet->AckNum == syn_packet.SeqNum + 1) {
+            memset((char *)&ack_packet, 0, sizeof(ack_packet));
+            ack_packet.PacketType = 3;
+            ack_packet.SeqNum = syn_ack_packet->AckNum;
+            ack_packet.AckNum = generateNum();
+            if (syn_ack_packet->WindowSize < syn_packet.WindowSize) {
+                ack_packet.WindowSize = syn_ack_packet->WindowSize;
+            } else {
+                ack_packet.WindowSize = syn_packet.WindowSize;
+            }
+            break;
         }
     }
     // send ACK
@@ -117,7 +123,9 @@ int main (int argc, char **argv)
     printf ("Round-trip delay = %ld ms.\n", delay(start, end));
     // three-way handshake ends
 
-    char *msg = "The objective of this project is to design and implement a basic Send-And-Wait protocol simulator. The protocol will be half-duplex and use sliding windows to send multiple packets between two hosts on a LAN with an \"unrealiable network\" between the two hosts. The following diagram depicts the model:\nYour Mission\n - You may use any language of your choice to implement the three components shown in the diagram above. It is strongly recommended that you use your code from the first assignment to implement the peer stations.\n - You will be designing an application layer protocol in this case on top of UDP (in keeping with the wireless channel model). The protocol should be able to handle network errors such as packet loss and duplicate packets. You will implement timeouts and ACKs to handle retransmissions due to lost packets (ARQ).";
+    char *msg = "The objective of this project is to design and implement a basic Send-And-Wait protocol simulator. The protocol will be half-duplex and use sliding windows to send multiple packets between two hosts on a LAN with an \"unrealiable network\" between the two hosts.";
+    
+//     char *msg = "The objective of this project is to design and implement a basic Send-And-Wait protocol simulator. The protocol will be half-duplex and use sliding windows to send multiple packets between two hosts on a LAN with an \"unrealiable network\" between the two hosts. The following diagram depicts the model:\nYour Mission\n - You may use any language of your choice to implement the three components shown in the diagram above. It is strongly recommended that you use your code from the first assignment to implement the peer stations.\n - You will be designing an application layer protocol in this case on top of UDP (in keeping with the wireless channel model). The protocol should be able to handle network errors such as packet loss and duplicate packets. You will implement timeouts and ACKs to handle retransmissions due to lost packets (ARQ).";
     int packet_counter = 0, total_packet_count = 0, acked_packet_count = 0;
     int shift = 0;
     
@@ -127,79 +135,79 @@ int main (int argc, char **argv)
     struct PacketRTT *acked_packets[getWindowSize(msg, sizeof(ack_packet.data))];
 	// transmit data
     
-//     while (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
-//         while (packet_counter < ack_packet.WindowSize) {
-//             packet1.PacketType = 4; // 0 - EOT
-//             if (packet1_copy.SeqNum == packet1.SeqNum && total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
-//                 packet1.SeqNum += sizeof(packet1.data);
-//                 packet1.AckNum += sizeof(packet1.data);
-//                 packet1.WindowSize = packet1_copy.WindowSize;
-//                 char *to = (char *) malloc(sizeof(packet1.data));
-//                 strncpy(to, msg + shift, sizeof(to));
-//                 strncpy(packet1.data, to, sizeof(packet1.data));
-//             } else if (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
-//                 packet1.SeqNum = generateNum();
-//                 packet1.AckNum = packet1.SeqNum + 100;
-//                 packet1.WindowSize = ack_packet.WindowSize;
-//                 strncpy(packet1.data, msg, sizeof(packet1.data));
-//             } else {
-//                 packet1.PacketType = 0;
-//                 packet1.SeqNum += sizeof(packet1.data);
-//                 packet1.AckNum += sizeof(packet1.data);
-//                 packet1.WindowSize = packet1_copy.WindowSize;
-//                 memset(packet1.data, 0, sizeof(packet1.data));
-//                 sendPacket (sd, packet1, server);
-//                 printTransmitted (client, server, packet1);
-//                 break;
-//             }
-//             
-//             gettimeofday(&start, NULL);
-//             sendPacket (sd, packet1, server);
-//             printTransmitted (client, server, packet1);
-//             
-//             transmitted_packets[packet_counter] = packet1;
-//             struct PacketRTT *acked_packet = (struct PacketRTT*) malloc(sizeof(struct PacketRTT));
-//             acked_packet->packet = packet1;
-//             acked_packet->start = start;
-//             acked_packets[acked_packet_count] = acked_packet;
-//             packet1_copy = packet1;
-//             packet_counter++;
-//             total_packet_count++;
-//             acked_packet_count++;
-//             shift += sizeof(packet1.data);
-//         }
-//         
-//         struct Packet *ack = malloc(sizeof(struct Packet));
-//         while (packet_counter > 0) {
-//             ack = receivePacket (sd, server);
-//             switch (ack->PacketType) {
-//                 case 0: // EOT
-//                     break;
-//                 case 1: // SYN
-//                     break;
-//                 case 2: // SYNACK
-//                     break;
-//                 case 3: // ACK
-//                     if (ack->SeqNum == transmitted_packets[ack_packet.WindowSize - packet_counter].AckNum) {
-//                         printReceived (server, client, ack);
-//                         gettimeofday (&end, NULL);
-//                         for(int i = 0; i < ack_packet.WindowSize; i++) {
-//                             if (acked_packets[i]->packet.SeqNum == ack->SeqNum) {
-//                                 acked_packets[i]->delay = delay(acked_packets[i]->start, end);
-//                             }
-//                         }
-//                     }
-//                     break;
-//                 case 4: // DATA
-//                     break;
-//                 case 99: // TO
-//                     break;
-//                 default:
-//                     break;
-//             }
-//             packet_counter--;
-//         }
-//     }
+    while (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
+        while (packet_counter < ack_packet.WindowSize) {
+            packet1.PacketType = 4; // 0 - EOT
+            if (packet1_copy.SeqNum == packet1.SeqNum && total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
+                packet1.SeqNum += sizeof(packet1.data);
+                packet1.AckNum += sizeof(packet1.data);
+                packet1.WindowSize = packet1_copy.WindowSize;
+                char *to = (char *) malloc(sizeof(packet1.data));
+                strncpy(to, msg + shift, sizeof(to));
+                strncpy(packet1.data, to, sizeof(packet1.data));
+            } else if (total_packet_count < getWindowSize(msg, sizeof(ack_packet.data))) {
+                packet1.SeqNum = generateNum();
+                packet1.AckNum = packet1.SeqNum + 100;
+                packet1.WindowSize = ack_packet.WindowSize;
+                strncpy(packet1.data, msg, sizeof(packet1.data));
+            } else {
+                packet1.PacketType = 0;
+                packet1.SeqNum += sizeof(packet1.data);
+                packet1.AckNum += sizeof(packet1.data);
+                packet1.WindowSize = packet1_copy.WindowSize;
+                memset(packet1.data, 0, sizeof(packet1.data));
+                sendPacket (sd, packet1, server);
+                printTransmitted (client, server, packet1);
+                break;
+            }
+            
+            gettimeofday(&start, NULL);
+            sendPacket (sd, packet1, server);
+            printTransmitted (client, server, packet1);
+            
+            transmitted_packets[packet_counter] = packet1;
+            struct PacketRTT *acked_packet = (struct PacketRTT*) malloc(sizeof(struct PacketRTT));
+            acked_packet->packet = packet1;
+            acked_packet->start = start;
+            acked_packets[acked_packet_count] = acked_packet;
+            packet1_copy = packet1;
+            packet_counter++;
+            total_packet_count++;
+            acked_packet_count++;
+            shift += sizeof(packet1.data);
+        }
+        
+        struct Packet *ack = malloc(sizeof(struct Packet));
+        while (packet_counter > 0) {
+            ack = receivePacket (sd, server);
+            switch (ack->PacketType) {
+                case 0: // EOT
+                    break;
+                case 1: // SYN
+                    break;
+                case 2: // SYNACK
+                    break;
+                case 3: // ACK
+                    if (ack->SeqNum == transmitted_packets[ack_packet.WindowSize - packet_counter].AckNum) {
+                        printReceived (server, client, ack);
+                        gettimeofday (&end, NULL);
+                        for(int i = 0; i < ack_packet.WindowSize; i++) {
+                            if (acked_packets[i]->packet.SeqNum == ack->SeqNum) {
+                                acked_packets[i]->delay = delay(acked_packets[i]->start, end);
+                            }
+                        }
+                    }
+                    break;
+                case 4: // DATA
+                    break;
+                case 99: // TO
+                    break;
+                default:
+                    break;
+            }
+            packet_counter--;
+        }
+    }
     
     printf(" RTT\t\tPacketType\tSeqNum\t\tAckNum\t\tdata\t\tWindowSize\n");
     printf("========================================================================================\n");

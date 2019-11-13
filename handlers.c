@@ -122,5 +122,5 @@ int generateNum()
 
 int rand100()
 {
-    return (rand() % 100);
+    return (rand() % 101);
 }
