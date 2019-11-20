@@ -22,11 +22,17 @@ void DieWithError(char *error);
 
 int sendPacket(int skt, struct Packet pkt, struct sockaddr_in dst);
 
-struct PacketByte *receivePacket(int skt, struct sockaddr_in src);
+struct Packet *receivePacket(int skt, struct sockaddr_in src);
+
+struct PacketByte *receivePacketByte(int skt, struct sockaddr_in src);
+
+char *getPacketType(int );
 
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
 
 void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
+
+void printReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
 
 long delay (struct timeval t1, struct timeval t2);
 
