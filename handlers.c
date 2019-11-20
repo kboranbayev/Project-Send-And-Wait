@@ -121,6 +121,13 @@ int getWindowSize (char *totalData, int singlePacketSize)
 	return ceil(n);
 }
 
+int setWindowSize (int server_size, int client_size) {
+    if (server_size > client_size) {
+        return client_size;
+    }
+    return server_size;
+}
+
 int generateNum()
 {
 	return (rand() % 300);

@@ -38,6 +38,8 @@ long delay (struct timeval t1, struct timeval t2);
 
 int getWindowSize(char *totalData, int singlePacketSize);
 
+int setWindowSize (int server_size, int client_size);
+
 int generateNum();
 
 int rand100();

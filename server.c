@@ -1,7 +1,7 @@
 #include "handlers.h"
 
 #define SERVER_UDP_PORT 	8000	// Default port
-#define WIN				    1460   // Default Window Size
+#define WIN				    10   // Default Window Size
  
 int main (int argc, char **argv)
 {
@@ -42,13 +42,15 @@ int main (int argc, char **argv)
     struct timeval to;
     to.tv_sec = 3;
     to.tv_usec = 0;
-    setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+    //setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
 	
 	struct Packet *temp = malloc(sizeof(struct Packet));
     struct Packet previous_ack_sent;
+    struct Packet* received_packets;
 
     previous_ack_sent.SeqNum = 0;
     int skip = 0;
+    size_t max_window = 0;
 	while (1)
 	{   
         // cant change following to receivePacket() as sendto requires sockaddr client
@@ -67,7 +69,7 @@ int main (int argc, char **argv)
             printReceived(client, server, temp);
         }
         struct Packet ack;
-        if (skip != 4) {
+        if (skip < 4) {
             switch (temp->PacketType)
             {
                 case 1: // SYN
@@ -76,10 +78,12 @@ int main (int argc, char **argv)
                         ack.PacketType = 2;
                         ack.SeqNum = temp->AckNum;
                         ack.AckNum = temp->SeqNum + 25;
-                        ack.WindowSize = 5;
+                        max_window = setWindowSize(temp->WindowSize, WIN);
+                        ack.WindowSize = max_window;
                         memset(ack.data, 0, strlen(ack.data));
                         sendPacket (sd, ack, client);
                         printTransmitted (server, client, ack);
+                        received_packets = malloc(ack.WindowSize * sizeof(struct Packet));
                     } else {
                         sendPacket (sd, ack, client);
                         printReTransmitted (server, client, ack);
@@ -99,10 +103,8 @@ int main (int argc, char **argv)
                         ack.PacketType = 3;
                         ack.SeqNum = temp->AckNum;
                         ack.AckNum = temp->SeqNum + 1;
-                        ack.WindowSize = temp->WindowSize;
-                        memset(ack.data, 0, strlen(ack.data));
-                        sendPacket (sd, ack, client);
-                        printTransmitted (server, client, ack);
+                        ack.WindowSize = max_window - temp->WindowSize - 1;
+                        received_packets[ack.WindowSize] = ack;
                     } else {
                         sendPacket (sd, ack, client);
                         printReTransmitted (server, client, ack);
@@ -118,6 +120,14 @@ int main (int argc, char **argv)
                 default:
                     break;
             }
+            if (temp->WindowSize == 0) {
+                printf("server starts sending ack from here, %d\n", max_window);
+                for (size_t i = 0; i<max_window; i++) {
+                    sendPacket (sd, received_packets[i], client);
+                    printTransmitted (server, client, received_packets[i]);
+                }
+            }
+            
         }
         memset(temp, 0, sizeof(*temp));
 	}
