@@ -81,88 +81,154 @@ int main (int argc, char **argv)
     printf("Noise set to %d\t r = %d\n", noise, r);	
 
     int q = noise + 1;
+    int skip = 0;
     // 2 way handshake session
+    
     while (1) {
-        if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
+        
+        if (skip || (n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
             DieWithError ("recvfrom error");
         } else {
             printReceived (sender, emulator, temp);
-            if (temp->PacketType == 1) { // SYN
-                struct Packet tmp;
+            if (temp->PacketType == 1 || temp->PacketType == 4 || temp->PacketType == 8 && (temp->WindowSize != 0)) { // SYN OR DATA OR EOT
+                struct Packet tmp;        
                 tmp = *temp;
                 receiver_len = sizeof(receiver); 
                 if (noise < r) {
                     struct timeval to;
-                    to.tv_sec = 3;
+                    to.tv_sec = 1;
                     to.tv_usec = 0;
                     setsockopt(sd2, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
                     sendPacket (sd2, tmp, receiver);
                     printTransmitted (emulator, receiver, tmp);
-                    
-                    if ((n = recvfrom (sd2, temp, sizeof(*temp), 0, (struct sockaddr *)&receiver, (unsigned int *)&receiver_len)) > 0) {
-                        printReceived (receiver, emulator, temp);
-                        tmp = *temp;
-                        sendPacket (sd1, tmp, sender);
-                        printTransmitted (emulator, sender, tmp);
+                    if (tmp.PacketType == 1) { // SYN
                         break;
                     }
                 } else {
                     r = rand100();
                     printf("packet lost from server\n");
                 }
+            } else {
+                skip++;
+                break;
             }
         }
     }
 
-    free(temp);
-    // data client->server
-     while (1) {
-        if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
-            DieWithError ("recvfrom error");
-        } else {
-            printReceived (sender, emulator, temp);
-            if (temp->PacketType == 4) { // DATA
-                struct Packet tmp;
-                tmp = *temp;
-                receiver_len = sizeof(receiver); 
-                if (noise < noise + 1) {
-                    struct timeval to;
-                    to.tv_sec = 3;
-                    to.tv_usec = 0;
-                    setsockopt(sd2, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
-                    sendPacket (sd2, tmp, receiver);
-                    printTransmitted (emulator, receiver, tmp);
-                    
-                    
-                    if ((n = recvfrom (sd2, temp, sizeof(*temp), 0, (struct sockaddr *)&receiver, (unsigned int *)&receiver_len)) > 0) {
-                        printReceived (receiver, emulator, temp);
-                        tmp = *temp;
-                        sendPacket (sd1, tmp, sender);
-                        printTransmitted (emulator, sender, tmp);
-                        //free(temp);
-                    }
-                } else {
-                    r = rand100();
-                    printf("packet lost from server\n");
+    printf("skip = %d\n", skip);
+    while (1) {
+        if (skip) {
+            skip--;
+            printf("im here\n");
+            struct Packet tmp;
+            tmp = *temp; 
+            if (noise < r) {
+                struct timeval to;
+                to.tv_sec = 1;
+                to.tv_usec = 0;
+                setsockopt(sd1, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+                sendPacket (sd1, tmp, sender);
+                printTransmitted (emulator, sender, tmp);
+            } else {
+                r = rand100();
+                printf("packet lost from server\n");
+            }
+        } else if ((n = recvfrom (sd2, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
+            struct Packet tmp;
+            tmp = *temp;
+            if (noise < r) {
+                struct timeval to;
+                to.tv_sec = 1;
+                to.tv_usec = 0;
+                setsockopt(sd1, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+                sendPacket (sd1, tmp, sender);
+                printTransmitted (emulator, sender, tmp);
+                if (tmp.PacketType == 2) { // SYNACK
+                    break;
                 }
-            } else if (temp->PacketType == 8) { // EOT
-                struct Packet tmp;
-                tmp = *temp;
-                receiver_len = sizeof(receiver); 
-                if (noise < noise + 1) {
-                    struct timeval to;
-                    to.tv_sec = 3;
-                    to.tv_usec = 0;
-                    setsockopt(sd2, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
-                    sendPacket (sd2, tmp, receiver);
-                    printTransmitted (emulator, receiver, tmp);
-                    
-                    //free(temp);
-                    // maybe need an ack for EOT
-                }
+            } else {
+                r = rand100();
+                printf("packet lost from server\n");
             }
         }
+        //  else {
+        //     if (temp->PacketType == 2 || temp->PacketType == 3) { // ACK
+        //         struct Packet tmp;
+        //         tmp = *temp;
+        //         receiver_len = sizeof(receiver); 
+        //         if (noise < r) {
+        //             struct timeval to;
+        //             to.tv_sec = 1;
+        //             to.tv_usec = 0;
+        //             setsockopt(sd1, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+        //             sendPacket (sd1, tmp, receiver);
+        //             printTransmitted (emulator, receiver, tmp);
+        //         } else {
+        //             r = rand100();
+        //             printf("packet lost from server\n");
+        //         }
+        //     }
+        //     if (temp->WindowSize == 0 || temp->PacketType != 3) {
+        //         printf("its not ack or Window == 0\n");
+        //         break;
+        //     }
+        // }
     }
+
+
+    // while (1) {
+    //     if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
+    //         DieWithError ("recvfrom error");
+    //     } else {
+    //         printReceived (sender, emulator, temp);
+    //         if (temp->PacketType == 1 || temp->PacketType == 4 || temp->PacketType == 8) { // SYN OR DATA OR EOT
+    //             struct Packet tmp;
+    //             tmp = *temp;
+    //             receiver_len = sizeof(receiver); 
+    //             if (noise < r) {
+    //                 struct timeval to;
+    //                 to.tv_sec = 3;
+    //                 to.tv_usec = 0;
+    //                 setsockopt(sd1, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+    //                 sendPacket (sd1, tmp, receiver);
+    //                 printTransmitted (emulator, receiver, tmp);
+    //             } else {
+    //                 r = rand100();
+    //                 printf("packet lost from server\n");
+    //             }
+    //         }
+    //         if (temp->WindowSize == 0) {
+    //             break;
+    //         }
+    //     }
+    // }
+
+
+    // free(temp);
+    // // data client->server
+    //  while (1) {
+    //     if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
+    //         DieWithError ("recvfrom error");
+    //     } else {
+    //         printReceived (sender, emulator, temp);
+    //         if (temp->PacketType == 4 || temp->PacketType == 8) { // DATA & EOT
+    //             struct Packet tmp;
+    //             tmp = *temp;
+    //             receiver_len = sizeof(receiver); 
+    //             if (noise < noise + 1) {
+    //                 struct timeval to;
+    //                 to.tv_sec = 3;
+    //                 to.tv_usec = 0;
+    //                 setsockopt(sd2, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+    //                 sendPacket (sd2, tmp, receiver);
+    //                 printTransmitted (emulator, receiver, tmp);
+    //             } else {
+    //                 r = rand100();
+    //                 printf("packet lost from server\n");
+    //             }
+    //         }
+    //     }
+    // }
 
 	close(sd1);
     close(sd2);
