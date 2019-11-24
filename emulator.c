@@ -1,19 +1,14 @@
 #include "handlers.h"
 
-#define CLIENT_UDP_PORT		7000	// Default port
-#define SERVER_UDP_PORT		8000	// Default port
-
-void * wait(void) {
-    sleep(2);
-    printf("Done.\n");
-}
+// #define CLIENT_UDP_PORT		7000	// Default port
+// #define SERVER_UDP_PORT		8000	// Default port
 
 int main (int argc, char **argv)
 {
-	int	sd1, sd2, receiver_len, sender_len, port_server = SERVER_UDP_PORT, port_client = CLIENT_UDP_PORT, n, noise = 0, delay = 0, r = rand100();
+	int	sd1, sd2, receiver_len, sender_len, n, noise = 0, delay = 0, r = rand100();
 	struct	sockaddr_in receiver, sender, emulator;
     struct hostent *hp;
-    char *pname, *host, *conf_file;
+    char *pname, *conf_file;
     struct IP_PORT_ID *config = malloc(2*sizeof(struct IP_PORT_ID *));
     
     // Express server
@@ -88,7 +83,7 @@ int main (int argc, char **argv)
     //     error("ERROR connecting");
     // }
     char buff[1024];
-    char postdata[] = "param1=value1&param2=value";  /* Change param and value here */
+    char postdata[1024] = "param1=value1&param2=value";  /* Change param and value here */
 
     // sprintf(buff,"POST %s HTTP1.1\r\nAccept: */*\r\nAccept-Language: en-us\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip,deflate\r\nContent-Length: %d\r\nConnection: keep-alive\r\n\r\n%s",request,strlen(postdata),postdata);
     // if(write(node_fd,buff,sizeof(buff)) == -1) {
@@ -99,7 +94,7 @@ int main (int argc, char **argv)
     //send(node_fd,header,strlen(header),0);
     
     //recv(node_fd, buff, sizeof(buff), 0);
-    printf("%s\n", buff);
+    //printf("%s\n", buff);
 	// Bind an address to the socket
 	memset((char *)&emulator, 0, sizeof(emulator));
 	emulator.sin_family = AF_INET; 
@@ -124,8 +119,6 @@ int main (int argc, char **argv)
 	
     struct Packet *temp = malloc(sizeof(struct Packet));
     sender_len = sizeof(sender);
-
-    int max_window = 0;
     
     while (1) {
         while (1) {
@@ -133,34 +126,50 @@ int main (int argc, char **argv)
             if ((n = recvfrom (sd1, temp, sizeof(*temp), 0, (struct sockaddr *)&sender, (unsigned int *)&sender_len)) < 0) {
                 DieWithError ("sd1 recvfrom error");
             } else {
-                printReceived (sender, emulator, temp);
-                if (temp->PacketType == 1 || temp->PacketType == 4 && (temp->WindowSize != 0)) { // SYN OR DATA OR EOT
+                printNetworkReceived (sender, emulator, temp);
+                if ((temp->PacketType == 1 || temp->PacketType == 4) && (temp->WindowSize != 0)) { // SYN OR DATA OR EOT
                     struct Packet tmp;        
                     tmp = *temp;
                     
                     if (temp->PacketType == 4 && (temp->re == 1) && noise != 100) {
                         sendPacket (sd2, tmp, receiver);
-                        printReTransmitted (emulator, receiver, tmp);
+                        printNetworkReTransmitted (emulator, receiver, tmp);
                     } else if ((temp->re == 1) && temp->PacketType == 1 && noise != 100) {
                         sendPacket (sd2, tmp, receiver);
-                        printReTransmitted (emulator, receiver, tmp);
+                        printNetworkReTransmitted (emulator, receiver, tmp);
                         break;
                     } else if (noise < r) {
                         sleep(delay/1000);
                         sendPacket (sd2, tmp, receiver);
-                        printTransmitted (emulator, receiver, tmp);
+                        printNetworkTransmitted (emulator, receiver, tmp);
                         if (temp->PacketType == 1 || temp->WindowSize == 0 || temp->last == 1) {
                             break;
                         }
                     } else {
                         r = rand100();
                         printf("packet lost from client\n");
+                        req_t req;
+                        int ret = requests_init(&req);
+                        if (ret) { return 1;}
+                        char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
+                        int packet_size = sizeof(packet)/sizeof(char *);
+                        char *body = requests_url_encode(&req, packet, packet_size);
+                        printf("%s", body);
+                        //requests_post(&req, "http://localhost:3000/packet_lost", body);
+                        requests_get(&req, "http://localhost:3000/packet_lost");
+                        printf("Request URL: %s\n", req.url);
+                        printf("Response Code: %lu\n", req.code);
+                        printf("Response Size: %zu\n", req.size);
+                        printf("Response Body:\n%s", req.text);
+                        curl_free(body);
+                        requests_close(&req);
                     }
                 } else if (temp->PacketType == 8) {
                     struct Packet tmp;        
                     tmp = *temp;
                     sendPacket (sd2, tmp, receiver);
                     printTransmitted (emulator, receiver, tmp);
+                    break;
                 } else {
                     break;
                 }
@@ -182,21 +191,20 @@ int main (int argc, char **argv)
                 DieWithError ("sd2 recvfrom error");
                 break;
             } else {
-                printReceived (receiver, emulator, temp);
+                printNetworkReceived (receiver, emulator, temp);
                 if (temp->PacketType == 2 || temp->PacketType == 3) { // SYNACK OR ACK
                     struct Packet tmp;        
                     tmp = *temp;
                     sender_len = sizeof(sender);
                     if ((temp->re == 1 || temp->last == 1) && noise != 100) {
                         sendPacket (sd1, tmp, sender);
-                        printReTransmitted (emulator, sender, tmp);
+                        printNetworkReTransmitted (emulator, sender, tmp);
                         break;
                     } if (noise < r) {
                         sleep(delay/1000);
                         sendPacket (sd1, tmp, sender);
-                        printTransmitted (emulator, sender, tmp);
+                        printNetworkTransmitted (emulator, sender, tmp);
                         if (tmp.PacketType == 2) {
-                            max_window = tmp.WindowSize;
                             break;
                         } else if (tmp.last == 1) {
                             break;

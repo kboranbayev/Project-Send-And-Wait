@@ -15,7 +15,9 @@
 #include <strings.h>
 #include <string.h>
 #include <math.h>
-#include <pthread.h>
+
+/*----------- Custom Libraries ---------------------------*/
+#include "requests.h"
 
 #include "packet.h"
 
@@ -30,7 +32,15 @@ struct PacketByte *receivePacketByte(int skt, struct sockaddr_in src);
 
 char *getPacketType(int );
 
+void printNetworkReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
+
+void printNetworkTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
+
+void printNetworkReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
+
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
+
+void printReceivedRTT(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet, int delay);
 
 void printReceivedDuplicate(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
 
@@ -52,6 +62,6 @@ int generateNum();
 
 int rand100();
 
-struct IP_PORT *getIPsAndPorts(conf_file);
+struct IP_PORT_ID *getIPsAndPorts(char *file);
 
 #endif

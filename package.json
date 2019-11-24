@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/kboranbayev/Project-Send-And-Wait#readme",
   "dependencies": {
+    "browser-refresh": "^1.7.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "reload": "^3.0.3"
   }
 }

@@ -71,11 +71,27 @@ int main (int argc, char **argv)
 	{
 		DieWithError ("Can't bind name to socket");
 	}
-	
-    //char *msg = "The objective of this project";
     
-    char *msg = "The objective of this project is to design and implement a basic Send-And-Wait protocol simulator. The protocol will be half-duplex and use sliding windows to send multiple packets between two hosts on a LAN with an \"unrealiable network\" between the two hosts. The following diagram depicts the model:\nYour Mission\n - You may use any language of your choice to implement the three components shown in the diagram above. It is strongly recommended that you use your code from the first assignment to implement the peer stations.\n - You will be designing an application layer protocol in this case on top of UDP (in keeping with the wireless channel model). The protocol should be able to handle network errors such as packet loss and duplicate packets. You will implement timeouts and ACKs to handle retransmissions due to lost packets (ARQ).";
-        
+    
+
+    FILE *fp;
+
+    if ((fp = fopen("data/send.txt", "r")) == NULL) {
+       // Program exits if the file pointer returns NULL.
+       DieWithError ("Error! opening file");
+    }
+
+    fseek(fp, 0, SEEK_END);
+    long fsize = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    
+    char *msg = (char*)calloc(fsize, sizeof(char));
+    fread(msg, sizeof(char), fsize, fp);
+    
+    printf("%s\n", msg);
+    //char *msg = "The objective of this project is to design and implement a basic Send-And-Wait protocol simulator. The protocol will be half-duplex and use sliding windows to send multiple packets between two hosts on a LAN with an \"unrealiable network\" between the two hosts. The following diagram depicts the model:\nYour Mission\n - You may use any language of your choice to implement the three components shown in the diagram above. It is strongly recommended that you use your code from the first assignment to implement the peer stations.\n - You will be designing an application layer protocol in this case on top of UDP (in keeping with the wireless channel model). The protocol should be able to handle network errors such as packet loss and duplicate packets. You will implement timeouts and ACKs to handle retransmissions due to lost packets (ARQ).";
+    
+    
     struct Packet syn_packet;
     
     syn_packet.PacketType = 1;
@@ -109,77 +125,24 @@ int main (int argc, char **argv)
             sendPacket (sd, syn_packet, server);
             printReTransmitted( client, server, syn_packet);
         }
-        printReceived (server, client, syn_ack_packet);
         break;
     }
     
     gettimeofday (&end, NULL);
+    printReceivedRTT (server, client, syn_ack_packet, delay(start, end));
     printf ("Round-trip delay = %ld ms.\n", delay(start, end));
     // 2 way handshake session ends
 
     
-    int packet_counter = 0, total_packet_count = 0, acked_packet_count = 0, windowSize_counter = 1;
+    int packet_counter = 0, total_packet_count = 0, windowSize_counter = 1;
     int shift = 0;
     
     
     struct Packet copy_packet;
     copy_packet.SeqNum = 0;
     struct PacketSent transmitted_packets[syn_ack_packet->WindowSize];
-    struct PacketPriority retransmit_packets[syn_ack_packet->WindowSize];
     struct Packet *transmit_packets = malloc(syn_ack_packet->WindowSize * sizeof(struct Packet));;
     struct PacketRTT *acked_packets = malloc(syn_ack_packet->WindowSize * sizeof(struct PacketRTT));;
-
-    int not_acked = 0;
-
-    // while (packet_counter < syn_ack_packet->WindowSize) {
-    //         data_packet.PacketType = 4;
-    //         if (copy_packet.SeqNum != 0) {
-    //             data_packet.last = 0;
-    //             if (packet_counter == syn_ack_packet->WindowSize - 1) {
-    //                 data_packet.last = 1;
-    //             }
-    //             data_packet.SeqNum = copy_packet.SeqNum + syn_ack_packet->WindowSize;
-    //             data_packet.AckNum = copy_packet.AckNum + syn_ack_packet->WindowSize;
-    //             data_packet.WindowSize = windowSize_counter;
-    //             char *to = (char *) malloc(sizeof(data_packet.data));
-    //             strncpy(to, msg + shift, sizeof(data_packet.data));
-    //             strncpy(data_packet.data, to, sizeof(data_packet.data));
-    //         } else if (copy_packet.SeqNum == 0 && total_packet_count < getWindowSize(msg, sizeof(syn_ack_packet->data))) {
-    //             data_packet.last = 0;
-    //             data_packet.SeqNum = syn_ack_packet->AckNum;
-    //             data_packet.AckNum = syn_ack_packet->WindowSize; // idk
-    //             data_packet.WindowSize = windowSize_counter;
-    //             strncpy(data_packet.data, msg, sizeof(data_packet.data));
-    //         } else if (total_packet_count == getWindowSize(msg, sizeof(syn_ack_packet->data))) { // 
-    //             data_packet.PacketType = 8; // EOT
-    //             data_packet.SeqNum = copy_packet.SeqNum +  + getWindowSize(msg, sizeof(syn_ack_packet->data));
-    //             data_packet.AckNum = copy_packet.AckNum +  + getWindowSize(msg, sizeof(syn_ack_packet->data));
-    //             data_packet.WindowSize = windowSize_counter;
-    //             memset(data_packet.data, 0, sizeof(data_packet.data));
-    //         }
-
-    //         if (windowSize_counter == 0) {
-    //             windowSize_counter = syn_ack_packet->WindowSize;
-    //         }
-
-    //         if (copy_packet.PacketType == 8) {
-    //             printf("EOT sent\n");
-    //             break;
-    //         } 
-
-    //         gettimeofday(&start, NULL);
-    //         sendPacket (sd, data_packet, server);
-    //         printTransmitted (client, server, data_packet);
-            
-    //         transmitted_packets[packet_counter].packet = data_packet;
-    //         transmitted_packets[packet_counter].acked = 0;
-    //         copy_packet = data_packet;
-    //         packet_counter++;
-    //         total_packet_count++;
-    //         windowSize_counter++;
-    //         shift += sizeof(data_packet.data);
-    //     }
-
 
 	// transmit data
     int retransmission_needed = 0;
@@ -269,7 +232,7 @@ int main (int argc, char **argv)
                     break;
                 case 3: // ACK
                     if (ack->SeqNum == transmitted_packets[received_ack_count].packet.AckNum) {
-                        printReceived (server, client, ack);
+                        printReceivedRTT (server, client, ack, delay(start, end));
                         gettimeofday (&end, NULL);
                         transmitted_packets[received_ack_count].acked = 1;
                         acked_packets[received_ack_count].packet = *ack;
@@ -277,16 +240,18 @@ int main (int argc, char **argv)
                         received_ack_count++;
                     } else if (ack->SeqNum != transmitted_packets[received_ack_count].packet.AckNum && ack->SeqNum != test.SeqNum) {
                         printf("OUT OF ORDER\n");
+                        gettimeofday (&end, NULL);
                         for (int i = 0; i < syn_ack_packet->WindowSize; i++) {
                             if (ack->SeqNum == transmitted_packets[i].packet.AckNum) {
                                 transmitted_packets[i].acked = 1;
                             }
                         }
-                        printReceived (server, client, ack);
+                        printReceivedRTT (server, client, ack, delay(start, end));
                     } else if (ack->SeqNum == test.SeqNum) {
                         // duplicate acks
+                        gettimeofday (&end, NULL);
                         printf("DUPLICATE\n");
-                        printReceived (server, client, ack);
+                        printReceivedRTT (server, client, ack, delay(start, end));
                         
                     }
                     test = *ack;
@@ -319,13 +284,8 @@ int main (int argc, char **argv)
         }
     }
     
-    // printf(" RTT\t\tPacketType\tSeqNum\t\tAckNum\t\tdata\t\tWindowSize\n");
-    // printf("========================================================================================\n");
-    // for(int i = 0; i < total_packet_count; i++) {
-    //     printPacketDetail(acked_packets[i]->packet, acked_packets[i]->delay);    
-    // }
-    
 	close(sd);
+    fclose(fp);
 	return(0);
 }
 
