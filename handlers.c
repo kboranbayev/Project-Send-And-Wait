@@ -23,10 +23,7 @@ struct Packet *receivePacket(int skt, struct sockaddr_in src)
     int n;
     unsigned int src_len = sizeof(src);
     struct Packet *pkt = malloc(sizeof(struct Packet));
-    struct timeval timeout;
-    timeout.tv_sec = 60;
-    timeout.tv_usec = 0;
-    //setsockopt(skt, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+
     if ((n = recvfrom (skt, pkt, sizeof(*pkt), 0, (struct sockaddr *)&src, &src_len)) < 0)
     {
         perror("TIMEOUT=>GET");
@@ -42,10 +39,6 @@ struct PacketByte *receivePacketByte(int skt, struct sockaddr_in src)
     unsigned int src_len = sizeof(src);
     struct PacketByte *result = malloc(sizeof(struct PacketByte));
     struct Packet *pkt = malloc(sizeof(struct Packet));
-    struct timeval timeout;
-    timeout.tv_sec = 60;
-    timeout.tv_usec = 0;
-    //setsockopt(skt, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     if ((n = recvfrom (skt, pkt, sizeof(*pkt), 0, (struct sockaddr *)&src, &src_len)) < 0)
     {
         perror("TIMEOUT=>GET");
@@ -72,6 +65,9 @@ char *getPacketType(int PacketType) {
         case 4:
             type = "DATA";
             break;
+        case 5:
+            type = "NAK";
+            break;
         case 8:
 			type = "EOT";
 			break;
@@ -91,6 +87,13 @@ void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet
 	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
 }
 
+void printReceivedDuplicate(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet)
+{
+	char *type = getPacketType(packet->PacketType);
+	
+	printf(" Duplicate=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+}
+
 void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet)
 {
 	char *type = getPacketType(packet.PacketType);
@@ -105,6 +108,12 @@ void printReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct P
 	printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
 }
 
+void printPacketDetail(struct Packet packet, int delay) {
+    struct Packet pkt = packet;
+    printf(" %ld ms\t\t%d\t\t%d\t\t%d\t\t%s\t\t%d\n", delay, pkt.PacketType, pkt.SeqNum, pkt.AckNum, pkt.data, pkt.WindowSize);
+}
+
+
 // Compute the delay between tl and t2 in milliseconds 
 long delay (struct timeval t1, struct timeval t2)
 {
@@ -115,17 +124,24 @@ long delay (struct timeval t1, struct timeval t2)
 	return(d);
 }
 
-int getWindowSize (char *totalData, int singlePacketSize)
+int getTotalPacketCount (char *totalData, int singlePacketSize)
 {
 	double n = (double)strlen(totalData)/singlePacketSize;
 	return ceil(n);
 }
 
-int setWindowSize (int server_size, int client_size) {
+int setMaxWindowSize (int server_size, int client_size) {
     if (server_size > client_size) {
         return client_size;
     }
     return server_size;
+}
+
+int setMaxPacketCount (int server_size, int client_size) {
+    if (server_size > client_size) {
+        return server_size;
+    }
+    return client_size;
 }
 
 int generateNum()
@@ -136,4 +152,29 @@ int generateNum()
 int rand100()
 {
     return (rand() % 101);
+}
+
+struct IP_PORT *getIPsAndPorts(char *file) {
+    FILE *fp = fopen(file, "r");
+    struct IP_PORT_ID *result = malloc(sizeof(struct IP_PORT_ID *));
+    struct IP_PORT *ip_port = malloc(sizeof(struct IP_PORT *));
+    int *j;
+    int i = 0;
+    char singleLine[100], *ip;
+    while (!feof(fp) && i < 2) {
+        j = &i;
+        fgets(singleLine, 100, fp);
+        ip = strtok(singleLine, ":");
+        strncpy(ip_port->ip_address, ip, sizeof(ip_port->ip_address));
+        ip = strtok(NULL, "\n");
+        ip_port->port = atoi(ip);
+        result[i].ip_port = *ip_port;
+        ++i;
+        if (ip == NULL) {
+            break;
+        }
+    }
+    fclose(fp);
+
+    return result;
 }

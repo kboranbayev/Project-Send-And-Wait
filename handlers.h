@@ -8,12 +8,14 @@
 #include <sys/time.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <strings.h>
 #include <string.h>
 #include <math.h>
+#include <pthread.h>
 
 #include "packet.h"
 
@@ -30,18 +32,26 @@ char *getPacketType(int );
 
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
 
+void printReceivedDuplicate(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet);
+
 void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
 
 void printReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet);
 
+void printPacketDetail(struct Packet packet, int delay);
+
 long delay (struct timeval t1, struct timeval t2);
 
-int getWindowSize(char *totalData, int singlePacketSize);
+int getTotalPacketCount(char *totalData, int singlePacketSize);
 
-int setWindowSize (int server_size, int client_size);
+int setMaxWindowSize (int server_size, int client_size);
+
+int setMaxPacketCount (int server_size, int client_size);
 
 int generateNum();
 
 int rand100();
+
+struct IP_PORT *getIPsAndPorts(conf_file);
 
 #endif
