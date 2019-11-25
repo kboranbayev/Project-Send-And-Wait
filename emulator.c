@@ -70,10 +70,10 @@ int main (int argc, char **argv)
 
 
     /* fill in the structure */
-    memset(&express,0,sizeof(express));
-    express.sin_family = AF_INET;
-    express.sin_port = htons(port_express);
-    memcpy(&express.sin_addr.s_addr,node_hp->h_addr,node_hp->h_length);
+    //memset(&express,0,sizeof(express));
+    //express.sin_family = AF_INET;
+    //express.sin_port = htons(port_express);
+    //memcpy(&express.sin_addr.s_addr,node_hp->h_addr,node_hp->h_length);
 
     // node_fd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	
@@ -82,15 +82,15 @@ int main (int argc, char **argv)
     // if (connect(node_fd,(struct sockaddr *)&express,sizeof(express)) < 0) {
     //     error("ERROR connecting");
     // }
-    char buff[1024];
-    char postdata[1024] = "param1=value1&param2=value";  /* Change param and value here */
+    //char buff[1024];
+    //char postdata[1024] = "param1=value1&param2=value";  /* Change param and value here */
 
     // sprintf(buff,"POST %s HTTP1.1\r\nAccept: */*\r\nAccept-Language: en-us\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip,deflate\r\nContent-Length: %d\r\nConnection: keep-alive\r\n\r\n%s",request,strlen(postdata),postdata);
     // if(write(node_fd,buff,sizeof(buff)) == -1) {
     //     perror("write");
     // }
 
-    char *header = "POST /packet_lost HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\nContent-Length: 1024\r\nConnection: keep-alive\r\n\r\nparam1=lost&param2=forward\n";
+    //char *header = "POST /packet_lost HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\nContent-Length: 1024\r\nConnection: keep-alive\r\n\r\nparam1=lost&param2=forward\n";
     //send(node_fd,header,strlen(header),0);
     
     //recv(node_fd, buff, sizeof(buff), 0);
@@ -148,21 +148,22 @@ int main (int argc, char **argv)
                     } else {
                         r = rand100();
                         printf("packet lost from client\n");
-                        req_t req;
-                        int ret = requests_init(&req);
-                        if (ret) { return 1;}
-                        char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
-                        int packet_size = sizeof(packet)/sizeof(char *);
-                        char *body = requests_url_encode(&req, packet, packet_size);
-                        printf("%s", body);
-                        //requests_post(&req, "http://localhost:3000/packet_lost", body);
-                        requests_get(&req, "http://localhost:3000/packet_lost");
-                        printf("Request URL: %s\n", req.url);
-                        printf("Response Code: %lu\n", req.code);
-                        printf("Response Size: %zu\n", req.size);
-                        printf("Response Body:\n%s", req.text);
-                        curl_free(body);
-                        requests_close(&req);
+                        
+                        // req_t req;
+                        // int ret = requests_init(&req);
+                        // if (ret) { return 1;}
+                        // char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
+                        // int packet_size = sizeof(packet)/sizeof(char *);
+                        // char *body = requests_url_encode(&req, packet, packet_size);
+                        // printf("%s", body);
+                        // //requests_post(&req, "http://localhost:3000/packet_lost", body);
+                        // requests_get(&req, "http://localhost:3000/packet_lost");
+                        // printf("Request URL: %s\n", req.url);
+                        // printf("Response Code: %lu\n", req.code);
+                        // printf("Response Size: %zu\n", req.size);
+                        // printf("Response Body:\n%s", req.text);
+                        // curl_free(body);
+                        // requests_close(&req);
                     }
                 } else if (temp->PacketType == 8) {
                     struct Packet tmp;        
