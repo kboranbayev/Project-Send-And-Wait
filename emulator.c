@@ -1,6 +1,6 @@
 #include "handlers.h"
 
-// #define CLIENT_UDP_PORT		7000	// Default port
+#define CLIENT_UDP_PORT		7000	// Default port
 // #define SERVER_UDP_PORT		8000	// Default port
 
 int main (int argc, char **argv)
@@ -34,8 +34,12 @@ int main (int argc, char **argv)
         
         config = getIPsAndPorts(conf_file);
         
-        printf("ip=%s port=%d\n", config[0].ip_port.ip_address, config[0].ip_port.port);
-        printf("ip=%s port=%d\n", config[1].ip_port.ip_address, config[1].ip_port.port);
+        //strncpy(config[0].ip_port.ip_address, "192.168.0.18", sizeof(config[0].ip_port.ip_address));
+        //strncpy(config[1].ip_port.ip_address, "192.168.0.20", sizeof(config[1].ip_port.ip_address));
+        
+        //config[0].ip_port.ip_address = "192.168.0.18";127
+        //config[1].ip_port.ip_address = "192.168.0.20";
+        
         printf("noise = %d%% delay = %d ms\n", noise, delay);
 
     } else {
@@ -63,7 +67,7 @@ int main (int argc, char **argv)
 	}
 
     /* lookup the ip address */
-    if((node_hp = gethostbyname("127.0.0.1")) == NULL){
+    if((node_hp = gethostbyname("192.168.0.18")) == NULL){
 		herror("gethostbyname");
 		exit(1);
 	}
@@ -98,15 +102,16 @@ int main (int argc, char **argv)
 	// Bind an address to the socket
 	memset((char *)&emulator, 0, sizeof(emulator));
 	emulator.sin_family = AF_INET; 
-	emulator.sin_port = htons(config[1].ip_port.port); 
+	emulator.sin_port = htons(7000); 
 	emulator.sin_addr.s_addr = htonl(INADDR_ANY);
     
     memset((char *)&receiver, 0, sizeof(receiver));
 	receiver.sin_family = AF_INET; 
-	receiver.sin_port = htons(config[0].ip_port.port);
+	receiver.sin_port = htons(8000);
     
     
-    if ((hp = gethostbyname(config[0].ip_port.ip_address)) == NULL)
+    //if ((hp = gethostbyname(config[0].ip_port.ip_address)) == NULL)
+    if ((hp = gethostbyname("192.168.0.18")) == NULL)
     {
         DieWithError ("Can't get server's IP address");
     }
@@ -148,27 +153,28 @@ int main (int argc, char **argv)
                     } else {
                         r = rand100();
                         printf("packet lost from client\n");
-                        req_t req;
-                        int ret = requests_init(&req);
-                        if (ret) { return 1;}
-                        char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
-                        int packet_size = sizeof(packet)/sizeof(char *);
-                        char *body = requests_url_encode(&req, packet, packet_size);
-                        printf("%s", body);
-                        //requests_post(&req, "http://localhost:3000/packet_lost", body);
-                        requests_get(&req, "http://localhost:3000/packet_lost");
-                        printf("Request URL: %s\n", req.url);
-                        printf("Response Code: %lu\n", req.code);
-                        printf("Response Size: %zu\n", req.size);
-                        printf("Response Body:\n%s", req.text);
-                        curl_free(body);
-                        requests_close(&req);
+                        sleep(1.5);
+//                         req_t req;
+//                         int ret = requests_init(&req);
+//                         if (ret) { return 1;}
+//                         char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
+//                         int packet_size = sizeof(packet)/sizeof(char *);
+//                         char *body = requests_url_encode(&req, packet, packet_size);
+//                         printf("%s", body);
+//                         //requests_post(&req, "http://localhost:3000/packet_lost", body);
+//                         requests_get(&req, "http://localhost:3000/packet_lost");
+//                         printf("Request URL: %s\n", req.url);
+//                         printf("Response Code: %lu\n", req.code);
+//                         printf("Response Size: %zu\n", req.size);
+//                         printf("Response Body:\n%s", req.text);
+//                         curl_free(body);
+//                         requests_close(&req);
                     }
                 } else if (temp->PacketType == 8) {
                     struct Packet tmp;        
                     tmp = *temp;
                     sendPacket (sd2, tmp, receiver);
-                    printTransmitted (emulator, receiver, tmp);
+                    printNetworkReTransmitted (emulator, receiver, tmp);
                     break;
                 } else {
                     break;
@@ -212,6 +218,7 @@ int main (int argc, char **argv)
                     } else {
                         r = rand100();
                         printf("packet lost from server\n");
+                        sleep(1.5);
                     }
                 } else {
                     break;

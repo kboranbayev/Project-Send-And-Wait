@@ -83,22 +83,46 @@ char *getPacketType(int PacketType) {
 void printNetworkReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet)
 {
 	char *type = getPacketType(packet->PacketType);
-	
+    FILE *fp;
+    fp = fopen("logs/network_logs.txt", "a");
+    
+    if (fp == NULL) {
+        DieWithError("fopen ERROR");
+    }
+    
 	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+    fprintf(fp, " Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+    fclose(fp);
 }
 
 void printNetworkTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet)
 {
 	char *type = getPacketType(packet.PacketType);
+    FILE *fp;
+    fp = fopen("logs/network_logs.txt", "a");
+    
+    if (fp == NULL) {
+        DieWithError("fopen ERROR");
+    }
 	
     printf(" Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    fprintf(fp, " Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    fclose(fp);
 }
 
 void printNetworkReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Packet packet)
 {
 	char *type = getPacketType(packet.PacketType);
-
-	printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    FILE *fp;
+    fp = fopen("logs/network_logs.txt", "a");
+    
+    if (fp == NULL) {
+        DieWithError("fopen ERROR");
+    }
+    
+	printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packetprintf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);.data);
+    fprintf(fp, " Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    fclose(fp);
 }
 
 void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet)
@@ -119,7 +143,7 @@ void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet
     fprintf(fp, " Receive=>\tSrc = %s:%d\t\tDst = %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
     fclose(fp);
 }
-
+printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
 void printReceivedRTT(struct sockaddr_in src, struct sockaddr_in dst, struct Packet *packet, int delay) {
     char *type = getPacketType(packet->PacketType);
     FILE *fp;
@@ -247,7 +271,7 @@ struct IP_PORT_ID *getIPsAndPorts(char *file) {
         fgets(singleLine, 100, fp);
         ip = strtok(singleLine, ":");
         strncpy(ip_port->ip_address, ip, sizeof(ip_port->ip_address));
-        ip = strtok(NULL, "\n");
+        ip = strtok(NULL, ":");
         ip_port->port = atoi(ip);
         result[i].ip_port = *ip_port;
         ++i;

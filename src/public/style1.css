@@ -171,7 +171,7 @@ body{
 	top: -35%;
 	background-size: contain;
 	background-repeat: no-repeat;
-	animation: ufoEntrance 1.5s steps(5, start) ease infinite;
+	/* animation: ufoEntrance 1.5s steps(5, start) ease infinite; */
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
 	animation-delay: 0s;
@@ -262,10 +262,10 @@ body{
 }
 
 #server {
-    float: right;
+	right: 0;
     font-size: 2em;
     height: 100%;
-    right: .2em;
+    position: fixed;
     top: .2em;
 	margin: 1%;
 	padding: .2em;

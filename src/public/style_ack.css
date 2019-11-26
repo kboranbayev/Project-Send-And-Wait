@@ -240,7 +240,7 @@ body{
 @keyframes moveCar {
     0% {left: calc(0% - 150px);}
 	  60% {left: calc(100%);}
-	  60.1% {left: calc(0% - 150px);}
+	  
 	  90% {left: calc(50% - 5em); top: 40%; transform: rotate(0deg) translate(0px, -4.2em);}
 	  100% {left: calc(50% - 5em); top: 30%; transform: rotate(10deg) translate(-3px, -60px);}
       /* 100% {left: calc(0% - 150px);}  */
@@ -454,9 +454,7 @@ body{
 	height: 8px;
 	width: 8px;
 }
-
-
-.star:nth-child(6){
+60.1% {left: calc(0% - 150px);}
 	margin-left: 80%;
 	margin-top:5%;
 	height: 5px;
@@ -514,10 +512,7 @@ body{
 	background-size: contain;
 	transform: translate(10%,-1.8em);
 }
-
-/*shooting star*/
-.Sstar {
-  display:block;
+60.1% {left: calc(0% - 150px);}
   width:4px;
   height:4px;
   border-radius:50%;

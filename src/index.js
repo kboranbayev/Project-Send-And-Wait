@@ -12,9 +12,13 @@ app.use(express.static(__dirname + '/public'));
 
 let count = 0;
 app.get("/", (req, res) => {
-    count = Math.floor(Math.random() * 10);
+    count = Math.floor(Math.random() * 11);
     console.log(count);
-    if (count > 4) {
+    count = 8;
+    if (count >= 7) {
+        res.sendFile(path.join(__dirname, "ack_lost.html"));
+        count = Math.floor(Math.random() * 10);
+    } else if (count >= 4 ** count < 7) {
         res.sendFile(path.join(__dirname, "packet_lost.html"));
         count = Math.floor(Math.random() * 10);
     } else {
