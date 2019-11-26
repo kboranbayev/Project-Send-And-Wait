@@ -1,0 +1,353 @@
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = SYN	SeqNum = 100	AckNum: 200	WindowSize = 170	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = SYNACK	SeqNum = 200	AckNum: 122	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 122	AckNum: 22	WindowSize = 1	data: The o
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 144	AckNum: 44	WindowSize = 2	data: bject
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 166	AckNum: 66	WindowSize = 3	data: ive o
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 188	AckNum: 88	WindowSize = 4	data: f thi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 210	AckNum: 110	WindowSize = 5	data: s pro
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 232	AckNum: 132	WindowSize = 6	data: ject 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 254	AckNum: 154	WindowSize = 7	data: is to
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 276	AckNum: 176	WindowSize = 8	data:  desi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 298	AckNum: 198	WindowSize = 9	data: gn an
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 320	AckNum: 220	WindowSize = 10	data: d imp
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 342	AckNum: 242	WindowSize = 11	data: lemen
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 364	AckNum: 264	WindowSize = 12	data: t a b
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 386	AckNum: 286	WindowSize = 13	data: asic 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 408	AckNum: 308	WindowSize = 14	data: Send-
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 430	AckNum: 330	WindowSize = 15	data: And-W
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 452	AckNum: 352	WindowSize = 16	data: ait p
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 474	AckNum: 374	WindowSize = 17	data: rotoc
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 496	AckNum: 396	WindowSize = 18	data: ol si
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 518	AckNum: 418	WindowSize = 19	data: mulat
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 540	AckNum: 440	WindowSize = 20	data: or. T
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 562	AckNum: 462	WindowSize = 21	data: he pr
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 584	AckNum: 484	WindowSize = 22	data: otoco
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 22	AckNum: 606	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 44	AckNum: 628	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 66	AckNum: 650	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 88	AckNum: 672	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 110	AckNum: 694	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 132	AckNum: 716	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 154	AckNum: 738	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 176	AckNum: 760	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 198	AckNum: 782	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 220	AckNum: 804	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 242	AckNum: 826	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 264	AckNum: 848	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 286	AckNum: 870	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 308	AckNum: 892	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 330	AckNum: 914	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 352	AckNum: 936	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 374	AckNum: 958	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 396	AckNum: 980	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 418	AckNum: 1002	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 440	AckNum: 1024	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 462	AckNum: 1046	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 484	AckNum: 1068	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 606	AckNum: 506	WindowSize = 1	data: l wil
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 628	AckNum: 528	WindowSize = 2	data: l be 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 650	AckNum: 550	WindowSize = 3	data: half-
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 672	AckNum: 572	WindowSize = 4	data: duple
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 694	AckNum: 594	WindowSize = 5	data: x and
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 716	AckNum: 616	WindowSize = 6	data:  use 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 738	AckNum: 638	WindowSize = 7	data: slidi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 760	AckNum: 660	WindowSize = 8	data: ng wi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 782	AckNum: 682	WindowSize = 9	data: ndows
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 804	AckNum: 704	WindowSize = 10	data:  to s
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 826	AckNum: 726	WindowSize = 11	data: end m
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 848	AckNum: 748	WindowSize = 12	data: ultip
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 870	AckNum: 770	WindowSize = 13	data: le pa
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 892	AckNum: 792	WindowSize = 14	data: ckets
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 914	AckNum: 814	WindowSize = 15	data:  betw
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 936	AckNum: 836	WindowSize = 16	data: een t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 958	AckNum: 858	WindowSize = 17	data: wo ho
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 980	AckNum: 880	WindowSize = 18	data: sts o
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1002	AckNum: 902	WindowSize = 19	data: n a L
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1024	AckNum: 924	WindowSize = 20	data: AN wi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1046	AckNum: 946	WindowSize = 21	data: th an
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1068	AckNum: 968	WindowSize = 22	data:  \"un
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 506	AckNum: 1090	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 528	AckNum: 1112	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 550	AckNum: 1134	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 572	AckNum: 1156	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 594	AckNum: 1178	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 616	AckNum: 1200	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 638	AckNum: 1222	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 660	AckNum: 1244	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 682	AckNum: 1266	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 704	AckNum: 1288	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 726	AckNum: 1310	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 748	AckNum: 1332	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 770	AckNum: 1354	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 792	AckNum: 1376	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 814	AckNum: 1398	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 836	AckNum: 1420	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 858	AckNum: 1442	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 880	AckNum: 1464	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 902	AckNum: 1486	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 924	AckNum: 1508	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 946	AckNum: 1530	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 968	AckNum: 1552	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1090	AckNum: 990	WindowSize = 1	data: reali
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1112	AckNum: 1012	WindowSize = 2	data: able 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1134	AckNum: 1034	WindowSize = 3	data: netwo
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1156	AckNum: 1056	WindowSize = 4	data: rk\" 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1178	AckNum: 1078	WindowSize = 5	data: betwe
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1200	AckNum: 1100	WindowSize = 6	data: en th
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1222	AckNum: 1122	WindowSize = 7	data: e two
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1244	AckNum: 1144	WindowSize = 8	data:  host
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1266	AckNum: 1166	WindowSize = 9	data: s. Th
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1288	AckNum: 1188	WindowSize = 10	data: e fol
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1310	AckNum: 1210	WindowSize = 11	data: lowin
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1332	AckNum: 1232	WindowSize = 12	data: g dia
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1354	AckNum: 1254	WindowSize = 13	data: gram 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1376	AckNum: 1276	WindowSize = 14	data: depic
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1398	AckNum: 1298	WindowSize = 15	data: ts th
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1420	AckNum: 1320	WindowSize = 16	data: e mod
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1442	AckNum: 1342	WindowSize = 17	data: el:\n
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1464	AckNum: 1364	WindowSize = 18	data: Your 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1486	AckNum: 1386	WindowSize = 19	data: Missi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1508	AckNum: 1408	WindowSize = 20	data: on\n 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1530	AckNum: 1430	WindowSize = 21	data: - You
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1552	AckNum: 1452	WindowSize = 22	data:  may 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 990	AckNum: 1574	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1012	AckNum: 1596	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1034	AckNum: 1618	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1056	AckNum: 1640	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1078	AckNum: 1662	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1100	AckNum: 1684	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1122	AckNum: 1706	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1144	AckNum: 1728	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1166	AckNum: 1750	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1188	AckNum: 1772	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1210	AckNum: 1794	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1232	AckNum: 1816	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1254	AckNum: 1838	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1276	AckNum: 1860	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1298	AckNum: 1882	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1320	AckNum: 1904	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1342	AckNum: 1926	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1364	AckNum: 1948	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1386	AckNum: 1970	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1408	AckNum: 1992	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1430	AckNum: 2014	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1452	AckNum: 2036	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1574	AckNum: 1474	WindowSize = 1	data: use a
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1596	AckNum: 1496	WindowSize = 2	data: ny la
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1618	AckNum: 1518	WindowSize = 3	data: nguag
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1640	AckNum: 1540	WindowSize = 4	data: e of 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1662	AckNum: 1562	WindowSize = 5	data: your 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1684	AckNum: 1584	WindowSize = 6	data: choic
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1706	AckNum: 1606	WindowSize = 7	data: e to 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1728	AckNum: 1628	WindowSize = 8	data: imple
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1750	AckNum: 1650	WindowSize = 9	data: ment 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1772	AckNum: 1672	WindowSize = 10	data: the t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1794	AckNum: 1694	WindowSize = 11	data: hree 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1816	AckNum: 1716	WindowSize = 12	data: compo
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1838	AckNum: 1738	WindowSize = 13	data: nents
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1860	AckNum: 1760	WindowSize = 14	data:  show
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1882	AckNum: 1782	WindowSize = 15	data: n in 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1904	AckNum: 1804	WindowSize = 16	data: the d
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1926	AckNum: 1826	WindowSize = 17	data: iagra
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1948	AckNum: 1848	WindowSize = 18	data: m abo
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1970	AckNum: 1870	WindowSize = 19	data: ve. I
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 1992	AckNum: 1892	WindowSize = 20	data: t is 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2014	AckNum: 1914	WindowSize = 21	data: stron
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2036	AckNum: 1936	WindowSize = 22	data: gly r
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1474	AckNum: 2058	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1496	AckNum: 2080	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1518	AckNum: 2102	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1540	AckNum: 2124	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1562	AckNum: 2146	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1584	AckNum: 2168	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1606	AckNum: 2190	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1628	AckNum: 2212	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1650	AckNum: 2234	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1672	AckNum: 2256	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1694	AckNum: 2278	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1716	AckNum: 2300	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1738	AckNum: 2322	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1760	AckNum: 2344	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1782	AckNum: 2366	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1804	AckNum: 2388	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1826	AckNum: 2410	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1848	AckNum: 2432	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1870	AckNum: 2454	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1892	AckNum: 2476	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1914	AckNum: 2498	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1936	AckNum: 2520	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2058	AckNum: 1958	WindowSize = 1	data: ecomm
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2080	AckNum: 1980	WindowSize = 2	data: ended
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2102	AckNum: 2002	WindowSize = 3	data:  that
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2124	AckNum: 2024	WindowSize = 4	data:  you 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2146	AckNum: 2046	WindowSize = 5	data: use y
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2168	AckNum: 2068	WindowSize = 6	data: our c
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2190	AckNum: 2090	WindowSize = 7	data: ode f
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2212	AckNum: 2112	WindowSize = 8	data: rom t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2234	AckNum: 2134	WindowSize = 9	data: he fi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2256	AckNum: 2156	WindowSize = 10	data: rst a
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2278	AckNum: 2178	WindowSize = 11	data: ssign
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2300	AckNum: 2200	WindowSize = 12	data: ment 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2322	AckNum: 2222	WindowSize = 13	data: to im
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2344	AckNum: 2244	WindowSize = 14	data: pleme
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2366	AckNum: 2266	WindowSize = 15	data: nt th
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2388	AckNum: 2288	WindowSize = 16	data: e pee
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2410	AckNum: 2310	WindowSize = 17	data: r sta
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2432	AckNum: 2332	WindowSize = 18	data: tions
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2454	AckNum: 2354	WindowSize = 19	data: .\n -
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2476	AckNum: 2376	WindowSize = 20	data:  You 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2498	AckNum: 2398	WindowSize = 21	data: will 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2520	AckNum: 2420	WindowSize = 22	data: be de
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1958	AckNum: 2542	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 1980	AckNum: 2564	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2002	AckNum: 2586	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2024	AckNum: 2608	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2046	AckNum: 2630	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2068	AckNum: 2652	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2090	AckNum: 2674	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2112	AckNum: 2696	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2134	AckNum: 2718	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2156	AckNum: 2740	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2178	AckNum: 2762	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2200	AckNum: 2784	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2222	AckNum: 2806	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2244	AckNum: 2828	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2266	AckNum: 2850	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2288	AckNum: 2872	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2310	AckNum: 2894	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2332	AckNum: 2916	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2354	AckNum: 2938	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2376	AckNum: 2960	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2398	AckNum: 2982	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2420	AckNum: 3004	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2542	AckNum: 2442	WindowSize = 1	data: signi
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2564	AckNum: 2464	WindowSize = 2	data: ng an
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2586	AckNum: 2486	WindowSize = 3	data:  appl
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2608	AckNum: 2508	WindowSize = 4	data: icati
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2630	AckNum: 2530	WindowSize = 5	data: on la
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2652	AckNum: 2552	WindowSize = 6	data: yer p
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2674	AckNum: 2574	WindowSize = 7	data: rotoc
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2696	AckNum: 2596	WindowSize = 8	data: ol in
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2718	AckNum: 2618	WindowSize = 9	data:  this
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2740	AckNum: 2640	WindowSize = 10	data:  case
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2762	AckNum: 2662	WindowSize = 11	data:  on t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2784	AckNum: 2684	WindowSize = 12	data: op of
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2806	AckNum: 2706	WindowSize = 13	data:  UDP 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2828	AckNum: 2728	WindowSize = 14	data: (in k
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2850	AckNum: 2750	WindowSize = 15	data: eepin
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2872	AckNum: 2772	WindowSize = 16	data: g wit
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2894	AckNum: 2794	WindowSize = 17	data: h the
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2916	AckNum: 2816	WindowSize = 18	data:  wire
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2938	AckNum: 2838	WindowSize = 19	data: less 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2960	AckNum: 2860	WindowSize = 20	data: chann
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 2982	AckNum: 2882	WindowSize = 21	data: el mo
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3004	AckNum: 2904	WindowSize = 22	data: del).
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2442	AckNum: 3026	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2464	AckNum: 3048	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2486	AckNum: 3070	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2508	AckNum: 3092	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2530	AckNum: 3114	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2552	AckNum: 3136	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2574	AckNum: 3158	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2596	AckNum: 3180	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2618	AckNum: 3202	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2640	AckNum: 3224	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2662	AckNum: 3246	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2684	AckNum: 3268	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2706	AckNum: 3290	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2728	AckNum: 3312	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2750	AckNum: 3334	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2772	AckNum: 3356	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2794	AckNum: 3378	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2816	AckNum: 3400	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2838	AckNum: 3422	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2860	AckNum: 3444	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2882	AckNum: 3466	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2904	AckNum: 3488	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3026	AckNum: 2926	WindowSize = 1	data:  The 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3048	AckNum: 2948	WindowSize = 2	data: proto
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3070	AckNum: 2970	WindowSize = 3	data: col s
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3092	AckNum: 2992	WindowSize = 4	data: hould
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3114	AckNum: 3014	WindowSize = 5	data:  be a
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3136	AckNum: 3036	WindowSize = 6	data: ble t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3158	AckNum: 3058	WindowSize = 7	data: o han
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3180	AckNum: 3080	WindowSize = 8	data: dle n
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3202	AckNum: 3102	WindowSize = 9	data: etwor
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3224	AckNum: 3124	WindowSize = 10	data: k err
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3246	AckNum: 3146	WindowSize = 11	data: ors s
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3268	AckNum: 3168	WindowSize = 12	data: uch a
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3290	AckNum: 3190	WindowSize = 13	data: s pac
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3312	AckNum: 3212	WindowSize = 14	data: ket l
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3334	AckNum: 3234	WindowSize = 15	data: oss a
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3356	AckNum: 3256	WindowSize = 16	data: nd du
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3378	AckNum: 3278	WindowSize = 17	data: plica
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3400	AckNum: 3300	WindowSize = 18	data: te pa
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3422	AckNum: 3322	WindowSize = 19	data: ckets
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3444	AckNum: 3344	WindowSize = 20	data: . You
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3466	AckNum: 3366	WindowSize = 21	data:  will
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3488	AckNum: 3388	WindowSize = 22	data:  impl
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2926	AckNum: 3510	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2948	AckNum: 3532	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2970	AckNum: 3554	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 2992	AckNum: 3576	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3014	AckNum: 3598	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3036	AckNum: 3620	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3058	AckNum: 3642	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3080	AckNum: 3664	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3102	AckNum: 3686	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3124	AckNum: 3708	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3146	AckNum: 3730	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3168	AckNum: 3752	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3190	AckNum: 3774	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3212	AckNum: 3796	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3234	AckNum: 3818	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3256	AckNum: 3840	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3278	AckNum: 3862	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3300	AckNum: 3884	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3322	AckNum: 3906	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3344	AckNum: 3928	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3366	AckNum: 3950	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3388	AckNum: 3972	WindowSize = 22	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3510	AckNum: 3410	WindowSize = 1	data: ement
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3532	AckNum: 3432	WindowSize = 2	data:  time
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3554	AckNum: 3454	WindowSize = 3	data: outs 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3576	AckNum: 3476	WindowSize = 4	data: and A
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3598	AckNum: 3498	WindowSize = 5	data: CKs t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3620	AckNum: 3520	WindowSize = 6	data: o han
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3642	AckNum: 3542	WindowSize = 7	data: dle r
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3664	AckNum: 3564	WindowSize = 8	data: etran
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3686	AckNum: 3586	WindowSize = 9	data: smiss
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3708	AckNum: 3608	WindowSize = 10	data: ions 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3730	AckNum: 3630	WindowSize = 11	data: due t
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3752	AckNum: 3652	WindowSize = 12	data: o los
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3774	AckNum: 3674	WindowSize = 13	data: t pac
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3796	AckNum: 3696	WindowSize = 14	data: kets 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3818	AckNum: 3718	WindowSize = 15	data: (ARQ)
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3840	AckNum: 3740	WindowSize = 16	data: .
+
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = DATA	SeqNum = 3840	AckNum: 3740	WindowSize = 17	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = EOT	SeqNum = 3862	AckNum: 0	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3410	AckNum: 3994	WindowSize = 1	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3432	AckNum: 4016	WindowSize = 2	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3454	AckNum: 4038	WindowSize = 3	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3476	AckNum: 4060	WindowSize = 4	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3498	AckNum: 4082	WindowSize = 5	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3520	AckNum: 4104	WindowSize = 6	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3542	AckNum: 4126	WindowSize = 7	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3564	AckNum: 4148	WindowSize = 8	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3586	AckNum: 4170	WindowSize = 9	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3608	AckNum: 4192	WindowSize = 10	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3630	AckNum: 4214	WindowSize = 11	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3652	AckNum: 4236	WindowSize = 12	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3674	AckNum: 4258	WindowSize = 13	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3696	AckNum: 4280	WindowSize = 14	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3718	AckNum: 4302	WindowSize = 15	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3740	AckNum: 4324	WindowSize = 16	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3278	AckNum: 3862	WindowSize = 17	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3300	AckNum: 3884	WindowSize = 18	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3322	AckNum: 3906	WindowSize = 19	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3344	AckNum: 3928	WindowSize = 20	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3366	AckNum: 3950	WindowSize = 21	data: 
+ Transmit=>	Src: 0.0.0.0:16415			Dst: 0.0.0.0:18820		PacketType = ACK	SeqNum = 3388	AckNum: 3972	WindowSize = 22	data: 
+ Duplicate=>	Src: 192.168.0.19:18820		Dst: 192.168.0.19:16415		PacketType = DATA	SeqNum = 3840	AckNum: 3740	WindowSize = 17	data: 
+ Receive=>	Src = 192.168.0.19:18820		Dst = 192.168.0.19:16415		PacketType = EOT	SeqNum = 3862	AckNum: 0	WindowSize = 18	data: 

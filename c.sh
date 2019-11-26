@@ -8,7 +8,8 @@ if [ $(id -u) -eq 0 ]; then
     rm -rf client e server
     echo "Compiling ...";
 	gcc -W -Wall -lm handlers.c client.c -o client
-	gcc -W -Wall -lm handlers.c emulator.c -o e -L. -lrequests -lcurl
+# 	gcc -W -Wall -lm handlers.c emulator.c -o e -L. -lrequests -lcurl
+    gcc -W -Wall -lm handlers.c emulator.c -o e
 	gcc -W -Wall -lm handlers.c server.c -o server
 	echo "Finished";
 else

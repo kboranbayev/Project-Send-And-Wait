@@ -7,6 +7,7 @@ int main (int argc, char **argv)
 {
 	int	sd, port;
 	struct	sockaddr_in server, client;
+    struct  timeval start, end;
     char msg[1024];
     
 	switch(argc)
@@ -40,7 +41,7 @@ int main (int argc, char **argv)
 	}
 	
     struct timeval to;
-    to.tv_sec = 2;
+    to.tv_sec = 10;
     to.tv_usec = 0;
 	
 	struct Packet *temp = malloc(sizeof(struct Packet));
@@ -53,12 +54,14 @@ int main (int argc, char **argv)
 
     int all_data_received = 0;
     memset(msg, 0, sizeof(msg));
+    
+    setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
 	while (1)
 	{
         // cant change following to receivePacket() as sendto requires sockaddr client
         while (1) {
             unsigned int client_len = sizeof(client);
-            setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &to, sizeof(to));
+            
             if (recvfrom (sd, temp, sizeof(*temp), 0, (struct sockaddr *)&client, &client_len) < 0)
             {
                 if (previous_ack_sent.SeqNum == 0) {
@@ -95,8 +98,8 @@ int main (int argc, char **argv)
                             previous_ack_sent = ack;
                         } else {
                             ack.re = 1;
-                            sendPacket (sd, ack, client);
-                            printReTransmitted (server, client, ack);
+                            //sendPacket (sd, ack, client);
+                            //printReTransmitted (server, client, ack);
                         }
                         break;
                     case 2: // SYNACK
@@ -123,7 +126,8 @@ int main (int argc, char **argv)
                             if (temp->re == 1) {
                                 printReceivedDuplicate(client, server, temp);
                                 printf("checking and fixing previous packet sequence\n");
-                                for (int i = 0; i < max_window; i++) {
+                                
+for (int i = 0; i < max_window; i++) {
                                     if (received_packets[i].SeqNum == temp->SeqNum) {
                                         ack.PacketType = 3;
                                         ack.SeqNum = temp->AckNum;
@@ -145,6 +149,7 @@ int main (int argc, char **argv)
                                     break;
                                 }
                             }
+
                             if (ignore != 1 && packet_counter <= max_packets + 1) {
                                 ack.PacketType = 3;
                                 ack.SeqNum = temp->AckNum;
@@ -209,6 +214,7 @@ int main (int argc, char **argv)
                 }
 
                 fprintf(fp, "%s", msg);
+                fclose(fp);
                 memset(temp, 0, sizeof(*temp));
                 memset(received_packets, 0, sizeof(*received_packets));
                 all_data_received = 0;
