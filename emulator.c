@@ -148,21 +148,21 @@ int main (int argc, char **argv)
                     } else {
                         r = rand100();
                         printf("packet lost from client\n");
-                        req_t req;
-                        int ret = requests_init(&req);
-                        if (ret) { return 1;}
-                        char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
-                        int packet_size = sizeof(packet)/sizeof(char *);
-                        char *body = requests_url_encode(&req, packet, packet_size);
-                        printf("%s", body);
-                        //requests_post(&req, "http://localhost:3000/packet_lost", body);
-                        requests_get(&req, "http://localhost:3000/packet_lost");
-                        printf("Request URL: %s\n", req.url);
-                        printf("Response Code: %lu\n", req.code);
-                        printf("Response Size: %zu\n", req.size);
-                        printf("Response Body:\n%s", req.text);
-                        curl_free(body);
-                        requests_close(&req);
+//                         req_t req;
+//                         int ret = requests_init(&req);
+//                         if (ret) { return 1;}
+//                         char *packet[] = { "Content-Type: kuanysh", "temp->PacketType"};
+//                         int packet_size = sizeof(packet)/sizeof(char *);
+//                         char *body = requests_url_encode(&req, packet, packet_size);
+//                         printf("%s", body);
+//                         requests_post(&req, "http://localhost:3000/packet_lost", body);
+//                         requests_get(&req, "http://localhost:3000/packet_lost");
+//                         printf("Request URL: %s\n", req.url);
+//                         printf("Response Code: %lu\n", req.code);
+//                         printf("Response Size: %zu\n", req.size);
+//                         printf("Response Body:\n%s", req.text);
+//                         curl_free(body);
+//                         requests_close(&req);
                     }
                 } else if (temp->PacketType == 8) {
                     struct Packet tmp;        

@@ -136,7 +136,8 @@ int main (int argc, char **argv)
     
     int packet_counter = 0, total_packet_count = 0, windowSize_counter = 1;
     int shift = 0;
-    
+    timeout.tv_sec = 10 * delay(start, end);
+    setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
     struct Packet copy_packet;
     copy_packet.SeqNum = 0;
@@ -198,6 +199,8 @@ int main (int argc, char **argv)
                     transmit_packets[i].last = 1;
                     transmitted_packets[i].packet = transmit_packets[i];
                     transmitted_packets[i].acked = 0;
+                    memset(&start, 0, sizeof(&start));
+                    gettimeofday(&start, NULL);
                     sendPacket (sd,  transmit_packets[i], server);
                     printTransmitted (client, server,  transmit_packets[i]);
                     break;
