@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Kuanysh Boranbayev
+ * @date November 27, 2019
+ */
 #ifndef HANDLERS_H
 #define HANDLERS_H
 

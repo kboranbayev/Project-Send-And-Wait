@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Kuanysh Boranbayev
+ * @date November 27, 2019
+ */
+
 struct Packet
 {
 	int PacketType;
@@ -35,7 +41,7 @@ struct PacketByte
 
 struct IP_PORT
 {
-    char ip_address[10];
+    char ip_address[20];
     int port;
 };
 

@@ -1,5 +1,8 @@
-// A simple UCP client program allows the user to specify a server by its domain name.
-
+/**
+ * 
+ * @author Kuanysh Boranbayev
+ * @date November 27, 2019
+ */
 #include "handlers.h"
 
 #define CLIENT_UDP_PORT        6000    // Default client port
