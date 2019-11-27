@@ -2,8 +2,7 @@
 
 if [ $(id -u) -eq 0 ]; then
 	echo "Deleting previous log files";
-	rm -rf logs
-	mkdir logs
+	rm -rf logs/*.txt
     echo "Deleting previous compiles";
     rm -rf client e server
     echo "Compiling ...";

@@ -247,7 +247,7 @@ struct IP_PORT_ID *getIPsAndPorts(char *file) {
         fgets(singleLine, 100, fp);
         ip = strtok(singleLine, ":");
         strncpy(ip_port->ip_address, ip, sizeof(ip_port->ip_address));
-        ip = strtok(NULL, "\n");
+        ip = strtok(NULL, ":");
         ip_port->port = atoi(ip);
         result[i].ip_port = *ip_port;
         ++i;

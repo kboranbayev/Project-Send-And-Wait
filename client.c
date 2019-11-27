@@ -130,15 +130,15 @@ int main (int argc, char **argv)
     
     gettimeofday (&end, NULL);
     printReceivedRTT (server, client, syn_ack_packet, delay(start, end));
-    printf ("Round-trip delay = %ld ms.\n", delay(start, end));
-    timeout.tv_sec = 10 * 1000 * delay(start, end);
-    setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+
+    
     // 2 way handshake session ends
 
     
     int packet_counter = 0, total_packet_count = 0, windowSize_counter = 1;
     int shift = 0;
-    
+    timeout.tv_sec = 10 * delay(start, end);
+    setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
     struct Packet copy_packet;
     copy_packet.SeqNum = 0;
