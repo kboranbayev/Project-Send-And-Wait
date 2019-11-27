@@ -16,9 +16,6 @@
 #include <string.h>
 #include <math.h>
 
-/*----------- Custom Libraries ---------------------------*/
-#include "requests.h"
-
 #include "packet.h"
 
 /*----------- Function Prototypes ------------------------*/
