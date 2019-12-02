@@ -1,6 +1,7 @@
 /**
  * 
  * @author Kuanysh Boranbayev
+ * @author Parm Dhaliwal
  * @date November 27, 2019
  */
 #ifndef HANDLERS_H
@@ -20,6 +21,7 @@
 #include <strings.h>
 #include <string.h>
 #include <math.h>
+#include <pthread.h>
 
 #include "packet.h"
 
@@ -54,11 +56,11 @@ void printPacketDetail(struct Packet packet, int delay);
 
 long delay (struct timeval t1, struct timeval t2);
 
-int getTotalPacketCount(char *totalData, int singlePacketSize);
+long int getTotalPacketCount(char *totalData, int singlePacketSize);
 
-int setMaxWindowSize (int server_size, int client_size);
+long int setMaxWindowSize (long int server_size, long int client_size);
 
-int setMaxPacketCount (int server_size, int client_size);
+long int setMaxPacketCount (long int server_size, long int client_size);
 
 int generateNum();
 

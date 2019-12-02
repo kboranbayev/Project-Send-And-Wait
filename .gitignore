@@ -4,6 +4,9 @@ server
 
 # node modules
 node_modules/
+network-emulator/node_modules/
+
 
 # package_lock
 package_lock.json
+network-emulator/package_lock.json

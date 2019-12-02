@@ -1,16 +1,21 @@
 /**
  * 
  * @author Kuanysh Boranbayev
+ * @author Parm Dhaliwal
  * @date November 27, 2019
  */
+
+#define PAYLOAD_LEN     500 //  payload length set to 500 bytes per packet
+#define ADDRESS_LEN     20  //  string length for IP address
+#define TIMEOUT         10  //  default timeout set to 10 seconds
 
 struct Packet
 {
 	int PacketType;
 	unsigned int SeqNum;
 	unsigned int AckNum;
-	int WindowSize;
-    char data[5];
+	long int WindowSize;
+    char data[PAYLOAD_LEN];
     int last;
     int re;
 };
@@ -41,7 +46,7 @@ struct PacketByte
 
 struct IP_PORT
 {
-    char ip_address[20];
+    char ip_address[ADDRESS_LEN];
     int port;
 };
 

@@ -1,8 +1,10 @@
 /**
  * 
  * @author Kuanysh Boranbayev
+ * @author Parm Dhaliwal
  * @date November 27, 2019
  */
+
 #include "handlers.h"
 
 void DieWithError(char *error)
@@ -95,8 +97,8 @@ void printNetworkReceived(struct sockaddr_in src, struct sockaddr_in dst, struct
         DieWithError("fopen ERROR");
     }
     
-	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
-    fprintf(fp, " Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+    fprintf(fp, " Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
     fclose(fp);
 }
 
@@ -110,8 +112,8 @@ void printNetworkTransmitted(struct sockaddr_in src, struct sockaddr_in dst, str
         DieWithError("fopen ERROR");
     }
 	
-    printf(" Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
-    fprintf(fp, " Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    printf(" Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    fprintf(fp, " Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
     fclose(fp);
 }
 
@@ -125,8 +127,8 @@ void printNetworkReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, s
         DieWithError("fopen ERROR");
     }
     
-	printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
-    fprintf(fp, " Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+	printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    fprintf(fp, " Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
     fclose(fp);
 }
 
@@ -144,8 +146,8 @@ void printReceived(struct sockaddr_in src, struct sockaddr_in dst, struct Packet
     }
 
 	
-	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
-    fprintf(fp, " Receive=>\tSrc = %s:%d\t\tDst = %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+    fprintf(fp, " Receive=>\tSrc = %s:%d\t\tDst = %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
     fclose(fp);
 }
 
@@ -161,8 +163,8 @@ void printReceivedRTT(struct sockaddr_in src, struct sockaddr_in dst, struct Pac
         DieWithError("fopen ERROR");
     }
 	
-	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\tRTT:%d ms\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data, delay);
-    fprintf(fp, " Receive=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tRTT:%d ms\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, delay);
+	printf(" Receive=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\tArrived:%d ms\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data, delay);
+    fprintf(fp, " Receive=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tArrived:%d ms\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, delay);
     fclose(fp);
 }
 
@@ -179,8 +181,8 @@ void printReceivedDuplicate(struct sockaddr_in src, struct sockaddr_in dst, stru
         DieWithError("fopen ERROR");
     }
 	
-	printf(" Duplicate=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
-    fprintf(fp, " Duplicate=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+	printf(" Duplicate=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
+    fprintf(fp, " Duplicate=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n", inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet->SeqNum, packet->AckNum, packet->WindowSize, packet->data);
     fclose(fp);
 }
 
@@ -197,8 +199,8 @@ void printTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct Pac
         DieWithError("fopen ERROR");
     }
 	
-    printf(" Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
-    fprintf(fp, " Transmit=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    printf(" Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    fprintf(fp, " Transmit=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
     fclose(fp);
 }
 
@@ -214,15 +216,19 @@ void printReTransmitted(struct sockaddr_in src, struct sockaddr_in dst, struct P
     if (fp == NULL) {
         DieWithError("fopen ERROR");
     }
-
-	printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
-    fprintf(fp, " Retransmit=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %d\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    if (packet.PacketType == 8) {
+        printf(" Transmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+        fprintf(fp, " Transmit=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    } else {
+        printf(" Retransmit=>\tSrc = %s:%d\t\tDst = %s:%d\n\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+        fprintf(fp, " Retransmit=>\tSrc: %s:%d\t\tDst: %s:%d\t\tPacketType = %s\tSeqNum = %d\tAckNum: %d\tWindowSize = %ld\tdata: %s\n",inet_ntoa(src.sin_addr), src.sin_port, inet_ntoa(dst.sin_addr), dst.sin_port, type, packet.SeqNum, packet.AckNum, packet.WindowSize, packet.data);
+    }
     fclose(fp);
 }
 
 void printPacketDetail(struct Packet packet, int delay) {
     struct Packet pkt = packet;
-    printf(" %d ms\t\t%d\t\t%d\t\t%d\t\t%s\t\t%d\n", delay, pkt.PacketType, pkt.SeqNum, pkt.AckNum, pkt.data, pkt.WindowSize);
+    printf(" %d ms\t\t%d\t\t%d\t\t%d\t\t%s\t\t%ld\n", delay, pkt.PacketType, pkt.SeqNum, pkt.AckNum, pkt.data, pkt.WindowSize);
 }
 
 
@@ -236,20 +242,20 @@ long delay (struct timeval t1, struct timeval t2)
 	return(d);
 }
 
-int getTotalPacketCount (char *totalData, int singlePacketSize)
+long int getTotalPacketCount (char *totalData, int singlePacketSize)
 {
 	double n = (double)strlen(totalData)/singlePacketSize;
 	return ceil(n);
 }
 
-int setMaxWindowSize (int server_size, int client_size) {
+long int setMaxWindowSize (long int server_size, long int client_size) {
     if (server_size > client_size) {
         return client_size;
     }
     return server_size;
 }
 
-int setMaxPacketCount (int server_size, int client_size) {
+long int setMaxPacketCount (long int server_size, long int client_size) {
     if (server_size > client_size) {
         return server_size;
     }
