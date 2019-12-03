@@ -8,8 +8,6 @@
 
 #define CLIENT_UDP_PORT        6000    // Default client port
 #define SERVER_UDP_PORT		   7000	   // Default server port
-#define WIN				       65000   // Default Window Size
-#define DEFLEN				   64	   // Default Length
 
 int main (int argc, char **argv)
 {
@@ -112,6 +110,7 @@ int main (int argc, char **argv)
     
     struct timeval timeout;
     timeout.tv_sec = TIMEOUT;
+    timeout.tv_usec = 0;
     setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     // start RTT calculator
     gettimeofday(&start, NULL);
@@ -141,6 +140,7 @@ int main (int argc, char **argv)
     int shift = 0;
     if (delay(start, end) != 0) {
         timeout.tv_sec = TIMEOUT * delay(start, end);
+        timeout.tv_usec = 0;
     }
     setsockopt(sd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
@@ -312,4 +312,3 @@ int main (int argc, char **argv)
     fclose(fp);
 	return(0);
 }
-

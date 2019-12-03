@@ -2,9 +2,11 @@
 
 if [ $(id -u) -eq 0 ]; then
 	echo "Deleting previous log files";
-	rm -rf logs/*.txt
+	cd logs
+	rm -rf *.txt
+	cd ..
     echo "Deleting previous compiles";
-    rm -rf client e server
+    rm -rf client emulator server
     echo "Compiling ...";
 	gcc -W -Wall -lm handlers.c client.c -o client
 	gcc -W -Wall -lm handlers.c emulator.c -o emulator -lpthread
